@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Maryam Hany — Surrealist Artist</title>
@@ -63,29 +62,6 @@
     color: var(--pearl);
     font-family: var(--font-body);
     overflow-x: hidden;
-    cursor: none;
-  }
-
-  /* ═══════════════════════════════════════════════════════════════════
-     CURSOR
-  ═══════════════════════════════════════════════════════════════════ */
-  #cursor-dot {
-    position: fixed; z-index: 9999;
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--rose);
-    box-shadow: 0 0 14px 4px var(--glow-rose);
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    transition: width .25s, height .25s, background .3s;
-    mix-blend-mode: screen;
-  }
-  #cursor-ring {
-    position: fixed; z-index: 9998;
-    width: 40px; height: 40px; border-radius: 50%;
-    border: 1px solid rgba(139, 92, 246, 0.4);
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    transition: width .35s, height .35s, border-color .3s;
   }
 
   /* ═══════════════════════════════════════════════════════════════════
@@ -420,31 +396,52 @@
   }
 
   /* Ornate frame */
-  .frame {
-    position: relative; width: 100%; height: 100%;
-    padding: 12px;
-    background: linear-gradient(160deg, #18142a 0%, #0d0b1a 70%, #1a1230 100%);
-    border: 1px solid rgba(212,168,71,.18);
-    transition: border-color .45s, box-shadow .5s, transform .6s cubic-bezier(.2,.9,.3,1);
-    transform-style: preserve-3d;
-    box-shadow:
-      0 4px 20px rgba(0,0,0,.5),
-      0 20px 60px rgba(0,0,0,.4),
-      inset 0 0 30px rgba(0,0,0,.3);
+ .frame {
+  position: relative;
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(160deg, #18142a 0%, #0d0b1a 70%, #1a1230 100%);
+  border: 1px solid rgba(212,168,71,.18);
+  box-shadow:
+    0 4px 20px rgba(0,0,0,.5),
+    0 20px 60px rgba(0,0,0,.4),
+    inset 0 0 30px rgba(0,0,0,.3);
   }
+  
   /* Outer corner filigree */
-  .frame::before { content:''; position:absolute; top:4px; left:4px;  width:22px; height:22px; border-top:  1px solid rgba(212,168,71,.4); border-left:  1px solid rgba(212,168,71,.4); }
+  .frame::before {
+    content:'';
+    position:absolute;
+    top:4px;
+    left:4px;
+    width:22px;
+    height:22px;
+    border-top: 1px solid rgba(212,168,71,.4);
+    border-left:  1px solid rgba(212,168,71,.4);
+   }
+   
   .frame::after  { content:''; position:absolute; bottom:4px; right:4px; width:22px; height:22px; border-bottom:1px solid rgba(212,168,71,.4); border-right: 1px solid rgba(212,168,71,.4); }
 
-  .frame-inner { position: relative; width: 100%; height: 100%; overflow: hidden; }
+.frame-inner {
+  position: relative;
+  width: 100%;
+  height: auto;     
+  overflow: visible;  
+  display: block;
+}
+
   .frame-inner::before { content:''; position:absolute; top:0;    right:0; z-index:5; width:16px; height:16px; border-top:   1px solid rgba(212,168,71,.28); border-right: 1px solid rgba(212,168,71,.28); }
   .frame-inner::after  { content:''; position:absolute; bottom:0; left:0;  z-index:5; width:16px; height:16px; border-bottom:1px solid rgba(212,168,71,.28); border-left:  1px solid rgba(212,168,71,.28); }
 
-  .painting img {
-    width: 100%; height: 100%; object-fit: cover; display: block;
-    filter: brightness(.88) saturate(1.05);
-    transition: filter .5s;
-  }
+.painting img {
+  width: 100%;
+  height: auto;     
+  display: block;
+  object-fit: contain; 
+  filter: brightness(.88) saturate(1.05);
+  transition: filter .5s;
+}
+
   .painting-veil {
     position: absolute; inset: 12px;
     background: linear-gradient(160deg, rgba(50,20,80,.22), rgba(15,10,30,.38));
@@ -501,30 +498,22 @@
 
   .gallery-perspective { perspective: 1600px; perspective-origin: 50% 40%; }
 
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-auto-rows: 72px;
-    gap: 0;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-  .gallery-grid .painting:nth-child(1) { grid-column: 1 / 6;   grid-row: 1 / 11;  padding: 16px 20px 16px 0; }
-  .gallery-grid .painting:nth-child(2) { grid-column: 6 / 10;  grid-row: 1 / 8;   padding: 26px 12px 16px 12px; }
-  .gallery-grid .painting:nth-child(3) { grid-column: 10 / 13; grid-row: 1 / 7;   padding: 8px 0 16px 10px; }
-  .gallery-grid .painting:nth-child(4) { grid-column: 1 / 5;   grid-row: 11 / 20; padding: 16px 20px 16px 0; }
-  .gallery-grid .painting:nth-child(5) { grid-column: 5 / 9;   grid-row: 8 / 16;  padding: 12px; }
-  .gallery-grid .painting:nth-child(6) { grid-column: 9 / 13;  grid-row: 7 / 15;  padding: 12px 0 12px 12px; }
-  .gallery-grid .painting:nth-child(7) { grid-column: 2 / 7;   grid-row: 20 / 28; padding: 12px 12px 0 0; }
-  .gallery-grid .painting:nth-child(8) { grid-column: 7 / 12;  grid-row: 15 / 23; padding: 12px 0 0 12px; }
+.gallery-grid,
+.story-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  align-items: start;
+}
 
-  @media (max-width: 960px) {
-    .gallery-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: auto; gap: 18px; }
-    .gallery-grid .painting:nth-child(n) { grid-column: auto; grid-row: auto; padding: 0; aspect-ratio: 4/5; }
+  .gallery-grid .painting {
+    padding: 0;
   }
-  @media (max-width: 520px) {
-    .gallery-grid { grid-template-columns: 1fr; }
-  }
+
+  
+
+
+
 
   /* ═══════════════════════════════════════════════════════════════════
      PULL BAR — between galleries
@@ -557,36 +546,12 @@
     pointer-events: none;
   }
 
-  .story-strip {
-    display: grid;
-    gap: clamp(1rem, 1.8vw, 1.8rem);
-    margin-bottom: clamp(1rem, 1.8vw, 1.8rem);
-    width: 100%;
-  }
 
-  /* Row 1: wide | narrow | medium */
-  .story-strip-r1 { grid-template-columns: 2fr 1fr 1.4fr; height: clamp(260px, 32vw, 460px); }
-  /* Row 2: narrow | very wide */
-  .story-strip-r2 { grid-template-columns: 1.1fr 2.6fr;    height: clamp(220px, 26vw, 380px); }
-  /* Row 3: four equal */
-  .story-strip-r3 { grid-template-columns: repeat(4,1fr); height: clamp(190px, 20vw, 320px); }
 
-  .story-strip .painting { height: 100%; }
 
-  @media (max-width: 900px) {
-    .story-strip-r1, .story-strip-r2 { grid-template-columns: 1fr 1fr; height: auto; }
-    .story-strip-r1 .painting:nth-child(3) { display: none; }
-    .story-strip-r1 .painting,
-    .story-strip-r2 .painting { aspect-ratio: 4/5; }
-    .story-strip-r3 { grid-template-columns: 1fr 1fr; height: auto; }
-    .story-strip-r3 .painting { aspect-ratio: 4/5; }
-  }
-  @media (max-width: 540px) {
-    .story-strip-r1, .story-strip-r3 { grid-template-columns: 1fr; }
-    .story-strip-r1 .painting:nth-child(2),
-    .story-strip-r3 .painting:nth-child(3),
-    .story-strip-r3 .painting:nth-child(4) { display: none; }
-  }
+
+
+
 
   /* ═══════════════════════════════════════════════════════════════════
      LIGHTBOX
@@ -745,10 +710,6 @@
 <!-- ── Intro veil ──────────────────────────────────────────── -->
 <div id="intro-veil" aria-hidden="true"></div>
 
-<!-- ── Cursor ─────────────────────────────────────────────── -->
-<div id="cursor-dot"  aria-hidden="true"></div>
-<div id="cursor-ring" aria-hidden="true"></div>
-
 <!-- ── Three.js bg canvas ─────────────────────────────────── -->
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
@@ -769,52 +730,48 @@
        href=""
        target="_blank" rel="noopener noreferrer"
        aria-label="Maryam Hany — home">Mary</a>
-    <ul class="nav-links" role="list">
-      <li><a href="#bio"           class="nav-anchor">About</a></li>
-      <li><a href="#gallery"       class="nav-anchor">Gallery</a></li>
-      <li><a href="#story-gallery" class="nav-anchor">Stories</a></li>
-      <li><a href="#footer"        class="nav-anchor">Contact</a></li>
-    </ul>
   </nav>
 
-  <!-- ══════════════════════════════════════════════════════
-       HERO
-  ══════════════════════════════════════════════════════════ -->
-  <section id="hero" aria-labelledby="hero-name">
+<!-- ══════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════════ -->
+<section id="hero" aria-labelledby="hero-name">
 
-    <!-- Clickable signature → artist bio page -->
-    <a class="nav-logo"
+  <!-- Clickable signature → gallery -->
+  <a class="hero-sig-link"
+     href="#gallery"
+     aria-label="Go to gallery">
+
+    <span class="name-sub">Surrealist Artist</span>
+    <div class="sig-divider">
+      <div class="sig-diamond"></div>
+    </div>
+    <span class="name-sign" id="hero-name">Maryam Hany</span>
+  </a>
+
+  <div class="scroll-beacon" id="scroll-beacon" aria-hidden="true">
+    <span>Descend</span>
+    <div class="beacon-line"></div>
+  </div>
+
+  <!-- Instagram -->
+  <div class="footer-social">
+    <a class="social-pill"
        href="https://www.instagram.com/mary_soul_art?igsh=dnIxaWJqemg3MXJi"
        target="_blank" rel="noopener noreferrer"
-       aria-label="Maryam Hany — home">Mary</a>
-    
-      <span class="name-sub" aria-hidden="true">Surrealist Artist</span>
-      <div class="sig-divider" aria-hidden="true"><div class="sig-diamond"></div></div>
-      <span class="name-sign" id="hero-name">Maryam Hany</span>
+       aria-label="Maryam Hany on Instagram — @mary_soul_art">
+
+      <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <circle cx="12" cy="12" r="4.5"/>
+        <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/>
+      </svg>
+
+      <span class="social-label">@mary_soul_art</span>
     </a>
+  </div>
 
-    <div class="scroll-beacon" id="scroll-beacon" aria-hidden="true">
-      <span>Descend</span>
-      <div class="beacon-line"></div>
-    </div>
-
-    <div class="footer-social">
-  <a class="social-pill"
-     href="https://www.instagram.com/mary_soul_art?igsh=dnIxaWJqemg3MXJi"
-     target="_blank" rel="noopener noreferrer"
-     aria-label="Maryam Hany on Instagram — @mary_soul_art">
-
-    <!-- Instagram SVG -->
-    <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-      <circle cx="12" cy="12" r="4.5"/>
-      <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/>
-    </svg>
-
-    <span class="social-label">@mary_soul_art</span>
-  </a>
-</div>
-  </section>
+</section>
 
   <!-- ══════════════════════════════════════════════════════
        BIO
@@ -867,7 +824,6 @@
       <header class="section-header" id="gallery-header">
         <span class="section-eyebrow">Selected Works</span>
         <h2 class="section-title" id="gallery-title">The Dreamscapes</h2>
-        <span class="section-sub">hover to reveal &nbsp;&mdash;&nbsp; click to immerse</span>
         <div class="section-rule" aria-hidden="true"></div>
       </header>
 
@@ -877,49 +833,49 @@
           <div class="painting" role="listitem" data-title="Reverie No. I" data-meta="2023 · Mixed Media">
             <div class="frame"><div class="frame-inner"><img src="img/art1.png" alt="Reverie No. I — Maryam Hany" loading="lazy" /></div></div>
             <div class="painting-veil" aria-hidden="true"></div>
-            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Reverie No. I</span><span class="cap-meta">2023 · Mixed Media</span></div>
+            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Maryam Hany</span><span class="cap-meta">name</span></div>
           </div>
 
           <div class="painting" role="listitem" data-title="The Dissolving Hour" data-meta="2023 · Digital Canvas">
-            <div class="frame"><div class="frame-inner"><img src="img/art2.png" alt="The Dissolving Hour — Maryam Hany" loading="lazy" /></div></div>
+            <div class="frame"><div class="frame-inner"><img src="img/art2.png" alt="Maryam Hany" loading="lazy" /></div></div>
             <div class="painting-veil" aria-hidden="true"></div>
-            <div class="painting-caption" aria-hidden="true"><span class="cap-title">The Dissolving Hour</span><span class="cap-meta">2023 · Digital Canvas</span></div>
+            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Maryam Hany</span><span class="cap-meta">name</span></div>
           </div>
 
           <div class="painting" role="listitem" data-title="Echoes of Amber" data-meta="2024 · Acrylic &amp; Oil">
-            <div class="frame"><div class="frame-inner"><img src="img/art3.png" alt="Echoes of Amber — Maryam Hany" loading="lazy" /></div></div>
+            <div class="frame"><div class="frame-inner"><img src="img/art3.png" alt="Maryam Hany" loading="lazy" /></div></div>
             <div class="painting-veil" aria-hidden="true"></div>
-            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Echoes of Amber</span><span class="cap-meta">2024 · Acrylic &amp; Oil</span></div>
+            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Maryam Hany</span><span class="cap-meta">name</span></div>
           </div>
 
           <div class="painting" role="listitem" data-title="Void Cartography" data-meta="2024 · Digital">
-            <div class="frame"><div class="frame-inner"><img src="img/art4.png" alt="Void Cartography — Maryam Hany" loading="lazy" /></div></div>
+            <div class="frame"><div class="frame-inner"><img src="img/art4.png" alt="Maryam Hany" loading="lazy" /></div></div>
             <div class="painting-veil" aria-hidden="true"></div>
-            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Void Cartography</span><span class="cap-meta">2024 · Digital</span></div>
+            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Maryam Hany</span><span class="cap-meta">name</span></div>
           </div>
 
           <div class="painting" role="listitem" data-title="Threshold" data-meta="2024 · Mixed Media">
-            <div class="frame"><div class="frame-inner"><img src="img/art5.png" alt="Threshold — Maryam Hany" loading="lazy" /></div></div>
+            <div class="frame"><div class="frame-inner"><img src="img/art5.png" alt="Maryam Hany" loading="lazy" /></div></div>
             <div class="painting-veil" aria-hidden="true"></div>
-            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Threshold</span><span class="cap-meta">2024 · Mixed Media</span></div>
+            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Maryam Hany</span><span class="cap-meta">name</span></div>
           </div>
 
           <div class="painting" role="listitem" data-title="Lucid Architecture" data-meta="2024 · Oil on Board">
-            <div class="frame"><div class="frame-inner"><img src="img/art6.png" alt="Lucid Architecture — Maryam Hany" loading="lazy" /></div></div>
+            <div class="frame"><div class="frame-inner"><img src="img/art6.png" alt="Maryam Hany" loading="lazy" /></div></div>
             <div class="painting-veil" aria-hidden="true"></div>
-            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Lucid Architecture</span><span class="cap-meta">2024 · Oil on Board</span></div>
+            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Maryam Hany</span><span class="cap-meta">name</span></div>
           </div>
 
           <div class="painting" role="listitem" data-title="The Membrane" data-meta="2025 · Digital Canvas">
-            <div class="frame"><div class="frame-inner"><img src="img/art7.png" alt="The Membrane — Maryam Hany" loading="lazy" /></div></div>
+            <div class="frame"><div class="frame-inner"><img src="img/art7.png" alt="Maryam Hany" loading="lazy" /></div></div>
             <div class="painting-veil" aria-hidden="true"></div>
-            <div class="painting-caption" aria-hidden="true"><span class="cap-title">The Membrane</span><span class="cap-meta">2025 · Digital Canvas</span></div>
+            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Maryam Hany</span><span class="cap-meta">name</span></div>
           </div>
 
           <div class="painting" role="listitem" data-title="Astral Cartographer" data-meta="2025 · Mixed Media">
-            <div class="frame"><div class="frame-inner"><img src="img/art8.png" alt="Astral Cartographer — Maryam Hany" loading="lazy" /></div></div>
+            <div class="frame"><div class="frame-inner"><img src="img/art8.png" alt="Maryam Hany" loading="lazy" /></div></div>
             <div class="painting-veil" aria-hidden="true"></div>
-            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Astral Cartographer</span><span class="cap-meta">2025 · Mixed Media</span></div>
+            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Maryam Hany</span><span class="cap-meta">name</span></div>
           </div>
 
         </div>
@@ -1090,13 +1046,6 @@ window.addEventListener('load', () => {
     setTimeout(() => (veil.style.display = 'none'), 2200);
   });
 
-  /* ═══════════════════════════════════════════════
-     2 · Custom cursor — dot snaps, ring lags
-  ═══════════════════════════════════════════════ */
-  const dot  = document.getElementById('cursor-dot');
-  const ring = document.getElementById('cursor-ring');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-
   document.addEventListener('mousemove', e => {
     mx = e.clientX; my = e.clientY;
     dot.style.left = mx + 'px';
@@ -1111,21 +1060,7 @@ window.addEventListener('load', () => {
     requestAnimationFrame(tickRing);
   })();
 
-  /* Scale cursor on interactive hover */
-  document.querySelectorAll('a, .painting').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      dot.style.width = dot.style.height = '18px';
-      dot.style.background = 'var(--gold)';
-      ring.style.width = ring.style.height = '62px';
-      ring.style.borderColor = 'rgba(212,168,71,.45)';
-    });
-    el.addEventListener('mouseleave', () => {
-      dot.style.width = dot.style.height = '8px';
-      dot.style.background = 'var(--rose)';
-      ring.style.width = ring.style.height = '40px';
-      ring.style.borderColor = 'rgba(139,92,246,.4)';
-    });
-  });
+
 
   /* ═══════════════════════════════════════════════
      3 · Three.js starfield + nebula clouds
@@ -1220,14 +1155,6 @@ window.addEventListener('load', () => {
   gsap.ticker.add(time => lenis.raf(time * 1000));
   gsap.ticker.lagSmoothing(0);
 
-  /* Smooth anchor clicks via Lenis */
-  document.querySelectorAll('.nav-anchor').forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) lenis.scrollTo(target, { offset: -80, duration: 2.4 });
-    });
-  });
 
   /* ═══════════════════════════════════════════════
      5 · Living Dreamscape — mouse + scroll parallax

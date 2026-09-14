@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,7 +9,7 @@
   <!-- ══ Google Fonts ══════════════════════════════════════════════ -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Qwitcher+Grypen:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Cinzel:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Qwitcher+Grypen:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Cinzel:wght@400;600&family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet" />
 
   <!-- ══ GSAP + ScrollTrigger ══════════════════════════════════════ -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -36,6 +36,7 @@
     --teal:          #2dd4bf;
     --gold:          #d4a847;
     --gold-pale:     #f0d080;
+    --gold-deep:     #b8862f;
     --pearl:         #ede8f5;
     --muted:         #6b6280;
     --muted-light:   #9c96b0;
@@ -47,6 +48,7 @@
 
     --font-display:  'Cormorant Garamond', serif;
     --font-sign:     'Qwitcher Grypen', cursive;
+    --font-hero:     'Cinzel Decorative', serif;
     --font-label:    'Cinzel', serif;
     --font-body:     'DM Sans', sans-serif;
 
@@ -73,7 +75,6 @@
     pointer-events: none;
   }
 
-  /* SVG feTurbulence film-grain overlay */
   #noise-layer {
     position: fixed; inset: 0; z-index: 1;
     pointer-events: none; opacity: 0.03;
@@ -81,7 +82,6 @@
     background-size: 300px 300px;
   }
 
-  /* Radial gradient mesh — mouse-reactive via JS */
   #gradient-mesh {
     position: fixed; inset: 0; z-index: 1;
     pointer-events: none;
@@ -93,7 +93,6 @@
     will-change: transform;
   }
 
-  /* Ethereal floating orbs — scroll-parallax via JS */
   .eth-orb {
     position: fixed; border-radius: 50%;
     filter: blur(90px); pointer-events: none; z-index: 1;
@@ -147,15 +146,6 @@
     letter-spacing: .02em;
   }
   .nav-logo:hover { filter: drop-shadow(0 0 26px var(--glow-gold)); }
-  .nav-links { display: flex; gap: 2.4rem; list-style: none; }
-  .nav-links a {
-    font-family: var(--font-label);
-    font-size: .58rem; letter-spacing: .38em; text-transform: uppercase;
-    color: var(--muted-light); text-decoration: none;
-    transition: color .3s, text-shadow .3s;
-  }
-  .nav-links a:hover { color: var(--pearl); text-shadow: 0 0 18px var(--glow-violet); }
-  @media (max-width: 640px) { .nav-links { display: none; } }
 
   /* ═══════════════════════════════════════════════════════════════════
      HERO
@@ -177,15 +167,13 @@
     pointer-events: none; z-index: 3;
   }
 
-  /* Signature link wrapper */
   .hero-sig-link {
     display: inline-block; text-decoration: none;
     position: relative; z-index: 2;
-    opacity: 0; /* GSAP reveals */
+    opacity: 0;
     transition: transform .6s cubic-bezier(.2,.9,.3,1);
   }
 
-  /* English sub-title above */
   .name-sub {
     display: block;
     font-family: var(--font-display);
@@ -213,43 +201,46 @@
     box-shadow: 0 0 10px var(--glow-gold);
   }
 
-  /* The signature — main event */
+  /* ═══ THE SIGNATURE — hero name ═══ */
   .name-sign {
     display: block;
-    font-family: var(--font-sign);
-    font-size: clamp(4.5rem, 14vw, 16rem); 
-    line-height: 0.88;
-    padding-bottom: 0.15em;
-    font-weight: 700; line-height: .80;
-    background: linear-gradient(155deg, #ffffff 0%, #ddd6fe 22%, #e06095 58%, #d4a847 100%);
+    font-family: var(--font-hero);
+    font-size: clamp(3.2rem, 9.5vw, 11rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    background: linear-gradient(
+      155deg,
+      #fbe9b0 0%,
+      #f0d080 22%,
+      #d4a847 52%,
+      #b8862f 78%,
+      #d99a6f 100%
+    );
     -webkit-background-clip: text; background-clip: text;
     color: transparent;
-    filter: drop-shadow(0 0 55px rgba(139,92,246,.35));
-    transition: filter .55s;
-    letter-spacing: .01em;
+    filter:
+      drop-shadow(0 0 40px rgba(139,92,246,.35))
+      drop-shadow(0 0 18px rgba(212,168,71,.4));
+    transition: filter .55s, letter-spacing .55s;
   }
   .hero-sig-link:hover .name-sign {
-    filter: drop-shadow(0 0 90px rgba(212,168,71,.55)) drop-shadow(0 0 35px rgba(224,96,149,.4));
+    filter:
+      drop-shadow(0 0 70px rgba(212,168,71,.65))
+      drop-shadow(0 0 30px rgba(224,96,149,.45));
+    letter-spacing: .06em;
   }
 
-  /* "Click to visit" micro-label under signature */
   .sig-visit-hint {
     display: block;
     font-family: var(--font-label);
     font-size: .5rem; letter-spacing: .45em; text-transform: uppercase;
     color: rgba(107,98,128,.35);
-    margin-top: 1.2rem;
+    margin-top: 1.4rem;
     transition: color .4s;
   }
   .hero-sig-link:hover .sig-visit-hint { color: rgba(212,168,71,.6); }
-
-  .hero-tagline {
-    font-family: var(--font-label);
-    font-size: clamp(.5rem, .9vw, .72rem);
-    letter-spacing: .52em; text-transform: uppercase;
-    color: var(--muted); margin-top: 2.8rem;
-    opacity: 0;
-  }
 
   .scroll-beacon {
     position: absolute; bottom: 6vh; left: 50%;
@@ -285,7 +276,7 @@
   .section-header {
     text-align: center;
     margin-bottom: clamp(3.5rem, 7vh, 6rem);
-    opacity: 0; /* GSAP */
+    opacity: 0;
   }
   .section-eyebrow {
     display: block;
@@ -395,52 +386,56 @@
     cursor: pointer; opacity: 0; will-change: transform;
   }
 
-  /* Ornate frame */
- .frame {
-  position: relative;
-  width: 100%;
-  padding: 12px;
-  background: linear-gradient(160deg, #18142a 0%, #0d0b1a 70%, #1a1230 100%);
-  border: 1px solid rgba(212,168,71,.18);
-  box-shadow:
-    0 4px 20px rgba(0,0,0,.5),
-    0 20px 60px rgba(0,0,0,.4),
-    inset 0 0 30px rgba(0,0,0,.3);
+  .frame {
+    position: relative;
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(160deg, #18142a 0%, #0d0b1a 70%, #1a1230 100%);
+    border: 1px solid rgba(212,168,71,.18);
+    box-shadow:
+      0 4px 20px rgba(0,0,0,.5),
+      0 20px 60px rgba(0,0,0,.4),
+      inset 0 0 30px rgba(0,0,0,.3);
   }
-  
-  /* Outer corner filigree */
   .frame::before {
-    content:'';
-    position:absolute;
-    top:4px;
-    left:4px;
-    width:22px;
-    height:22px;
+    content:''; position:absolute; top:4px; left:4px;
+    width:22px; height:22px;
     border-top: 1px solid rgba(212,168,71,.4);
     border-left:  1px solid rgba(212,168,71,.4);
-   }
-   
-  .frame::after  { content:''; position:absolute; bottom:4px; right:4px; width:22px; height:22px; border-bottom:1px solid rgba(212,168,71,.4); border-right: 1px solid rgba(212,168,71,.4); }
+  }
+  .frame::after {
+    content:''; position:absolute; bottom:4px; right:4px;
+    width:22px; height:22px;
+    border-bottom:1px solid rgba(212,168,71,.4);
+    border-right: 1px solid rgba(212,168,71,.4);
+  }
 
-.frame-inner {
-  position: relative;
-  width: 100%;
-  height: auto;     
-  overflow: visible;  
-  display: block;
-}
+  .frame-inner {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    display: block;
+  }
+  .frame-inner::before {
+    content:''; position:absolute; top:0; right:0; z-index:5;
+    width:16px; height:16px;
+    border-top: 1px solid rgba(212,168,71,.28);
+    border-right: 1px solid rgba(212,168,71,.28);
+  }
+  .frame-inner::after {
+    content:''; position:absolute; bottom:0; left:0; z-index:5;
+    width:16px; height:16px;
+    border-bottom:1px solid rgba(212,168,71,.28);
+    border-left:  1px solid rgba(212,168,71,.28);
+  }
 
-  .frame-inner::before { content:''; position:absolute; top:0;    right:0; z-index:5; width:16px; height:16px; border-top:   1px solid rgba(212,168,71,.28); border-right: 1px solid rgba(212,168,71,.28); }
-  .frame-inner::after  { content:''; position:absolute; bottom:0; left:0;  z-index:5; width:16px; height:16px; border-bottom:1px solid rgba(212,168,71,.28); border-left:  1px solid rgba(212,168,71,.28); }
-
-.painting img {
-  width: 100%;
-  height: auto;     
-  display: block;
-  object-fit: contain; 
-  filter: brightness(.88) saturate(1.05);
-  transition: filter .5s;
-}
+  .painting img {
+    width: 100%; height: auto; display: block;
+    object-fit: contain;
+    filter: brightness(.88) saturate(1.05);
+    transition: filter .5s;
+  }
 
   .painting-veil {
     position: absolute; inset: 12px;
@@ -449,17 +444,17 @@
     transition: opacity .45s;
   }
 
-  /* Glassmorphism caption */
+  /* Glassmorphism caption — always visible */
   .painting-caption {
-    position: absolute; bottom: 16px; left: 16px; right: 16px; z-index: 4;
-    padding: 10px 14px 12px;
-    background: rgba(8, 6, 18, 0.42);
+    position: relative;
+    margin-top: 14px;
+    padding: 14px 18px 16px;
+    background: rgba(8, 6, 18, 0.55);
     backdrop-filter: blur(20px) saturate(1.6) brightness(1.08);
     -webkit-backdrop-filter: blur(20px) saturate(1.6) brightness(1.08);
     border: 1px solid rgba(212,168,71,.16);
     border-top-color: rgba(255,255,255,.05);
-    opacity: 0; transform: translateY(10px);
-    transition: opacity .4s cubic-bezier(.2,.9,.3,1), transform .4s cubic-bezier(.2,.9,.3,1);
+    transition: border-color .4s, background .4s;
   }
   .painting-caption::before {
     content: '';
@@ -468,15 +463,27 @@
   }
   .cap-title {
     display: block; font-family: var(--font-label);
-    font-size: .53rem; letter-spacing: .3em; text-transform: uppercase;
-    color: var(--gold-pale); margin-bottom: 4px;
+    font-size: .58rem; letter-spacing: .28em; text-transform: uppercase;
+    color: var(--gold-pale); margin-bottom: 6px;
   }
-  .cap-meta {
-    font-size: .72rem; font-style: italic; font-family: var(--font-display);
-    color: rgba(237,232,245,.42); letter-spacing: .04em;
+  .cap-desc {
+    font-size: .78rem;
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(237,232,245,.55);
+    letter-spacing: .01em;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .painting:hover .painting-caption {
+    border-color: rgba(212,168,71,.38);
+    background: rgba(12, 9, 24, 0.7);
   }
 
-  /* Hover */
   .painting:hover .frame {
     border-color: rgba(212,168,71,.55);
     box-shadow:
@@ -488,40 +495,30 @@
   }
   .painting:hover img { filter: brightness(1) saturate(1.28); }
   .painting:hover .painting-veil { opacity: 0; }
-  .painting:hover .painting-caption { opacity: 1; transform: translateY(0); }
 
   /* ═══════════════════════════════════════════════════════════════════
-     MAIN GALLERY — irregular void-grid
+     MAIN GALLERY
   ═══════════════════════════════════════════════════════════════════ */
   #gallery { position: relative; }
   #gallery > .section-wrap { max-width: 100%; }
 
   .gallery-perspective { perspective: 1600px; perspective-origin: 50% 40%; }
 
-.gallery-grid,
-.story-strip {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 18px;
-  align-items: start;
-}
-
-  .gallery-grid .painting {
-    padding: 0;
+  .gallery-grid,
+  .story-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 22px;
+    align-items: start;
   }
 
-  
-
-
-
-
   /* ═══════════════════════════════════════════════════════════════════
-     PULL BAR — between galleries
+     PULL BAR
   ═══════════════════════════════════════════════════════════════════ */
   .section-pull-bar {
     display: flex; align-items: center; justify-content: center;
     gap: 1.6rem; padding: 0 8vw;
-    opacity: 0; /* GSAP */
+    opacity: 0;
   }
   .pull-line {
     flex: 1; height: 1px; max-width: 200px;
@@ -534,7 +531,7 @@
   }
 
   /* ═══════════════════════════════════════════════════════════════════
-     STORY GALLERY — cinematic filmstrip
+     STORY GALLERY
   ═══════════════════════════════════════════════════════════════════ */
   #story-gallery { position: relative; overflow: hidden; }
   #story-gallery::before {
@@ -546,13 +543,6 @@
     pointer-events: none;
   }
 
-
-
-
-
-
-
-
   /* ═══════════════════════════════════════════════════════════════════
      LIGHTBOX
   ═══════════════════════════════════════════════════════════════════ */
@@ -562,6 +552,7 @@
     background: rgba(4,3,14,0);
     pointer-events: none;
     transition: background .5s;
+    padding: 4vh 4vw;
   }
   #lightbox.open {
     background: rgba(4,3,14,0.94);
@@ -569,34 +560,102 @@
   }
   #lb-wrap {
     position: relative;
-    max-width: 82vw; max-height: 84vh;
+    max-width: min(88vw, 1200px);
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
     transform: scale(.72) perspective(900px) rotateY(14deg);
     opacity: 0;
     transition: transform .65s cubic-bezier(.2,.9,.3,1), opacity .55s;
-  }
-  #lightbox.open #lb-wrap { transform: scale(1) perspective(900px) rotateY(0deg); opacity: 1; }
-  #lb-img {
-    max-width: 82vw; max-height: 80vh;
-    object-fit: contain; display: block;
+    overflow: hidden;
+    background: rgba(8,6,18,.6);
     border: 1px solid rgba(212,168,71,.22);
     box-shadow:
       0 0 0 1px rgba(139,92,246,.12),
       0 0 80px rgba(139,92,246,.12),
       0 50px 120px rgba(0,0,0,.9);
   }
+  #lightbox.open #lb-wrap {
+    transform: scale(1) perspective(900px) rotateY(0deg);
+    opacity: 1;
+  }
+
+  #lb-stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,.35);
+    min-height: 0;
+    flex: 1 1 auto;
+  }
+  #lb-img {
+    max-width: 100%;
+    max-height: 62vh;
+    object-fit: contain;
+    display: block;
+    transition: opacity .35s;
+  }
+  #lb-img.loading { opacity: 0; }
+
+  #lb-panel {
+    padding: 22px 32px 26px;
+    background: rgba(5,4,14,.85);
+    backdrop-filter: blur(22px) saturate(1.5);
+    border-top: 1px solid rgba(212,168,71,.18);
+    max-height: 26vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(212,168,71,.35) transparent;
+  }
+  #lb-panel::-webkit-scrollbar { width: 6px; }
+  #lb-panel::-webkit-scrollbar-track { background: transparent; }
+  #lb-panel::-webkit-scrollbar-thumb {
+    background: rgba(212,168,71,.35);
+    border-radius: 3px;
+  }
+
+  #lb-title {
+    font-family: var(--font-label);
+    font-size: .72rem;
+    letter-spacing: .38em;
+    text-transform: uppercase;
+    color: var(--gold-pale);
+    margin-bottom: 12px;
+  }
+  #lb-desc {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: .92rem;
+    line-height: 1.85;
+    color: rgba(237,232,245,.72);
+    letter-spacing: .01em;
+    white-space: pre-line;
+  }
+
   #lb-close {
-    position: absolute; top: -46px; right: 0;
+    position: absolute; top: 16px; right: 20px; z-index: 10;
     font-family: var(--font-label);
     font-size: .58rem; letter-spacing: .38em; text-transform: uppercase;
-    color: var(--muted); cursor: pointer;
-    transition: color .3s; padding: 6px 0;
+    color: rgba(237,232,245,.65);
+    cursor: pointer;
+    padding: 8px 14px;
+    background: rgba(5,4,14,.7);
+    border: 1px solid rgba(212,168,71,.22);
+    backdrop-filter: blur(12px);
+    transition: color .3s, border-color .3s, background .3s;
   }
-  #lb-close:hover { color: var(--rose); }
-  #lb-info {
-    position: absolute; bottom: -42px; left: 0;
-    font-family: var(--font-display);
-    font-style: italic; font-size: .92rem;
-    color: rgba(237,232,245,.32); letter-spacing: .06em;
+  #lb-close:hover {
+    color: var(--rose);
+    border-color: rgba(224,96,149,.5);
+    background: rgba(20,8,22,.85);
+  }
+
+  @media (max-width: 720px) {
+    #lb-img { max-height: 48vh; }
+    #lb-panel { padding: 18px 20px 20px; max-height: 30vh; }
+    #lb-title { font-size: .62rem; letter-spacing: .28em; }
+    #lb-desc { font-size: .84rem; line-height: 1.75; }
   }
 
   /* ═══════════════════════════════════════════════════════════════════
@@ -699,21 +758,46 @@
     100% { transform: translateY(-8vh) translateX(var(--d-drift, 0px)); opacity: 0; }
   }
 
-  /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════
+     SAFETY NET — if JS fails/disabled, reveal everything
+  ═══════════════════════════════════════════════════════════════════ */
+  .no-js .hero-sig-link,
+  .no-js .section-header,
+  .no-js .bio-aside,
+  .no-js .bio-main,
+  .no-js .painting,
+  .no-js .footer-inner,
+  .no-js #pull-bar,
+  .no-js .scroll-beacon {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  @media (scripting: none) {
+    .hero-sig-link,
+    .section-header,
+    .bio-aside,
+    .bio-main,
+    .painting,
+    .footer-inner,
+    #pull-bar,
+    .scroll-beacon {
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+    }
   }
   </style>
 </head>
 <body>
 
-<!-- ── Intro veil ──────────────────────────────────────────── -->
 <div id="intro-veil" aria-hidden="true"></div>
-
-<!-- ── Three.js bg canvas ─────────────────────────────────── -->
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
-
-<!-- ── Living Dreamscape layers ──────────────────────────── -->
 <div id="noise-layer"    aria-hidden="true"></div>
 <div id="gradient-mesh"  aria-hidden="true"></div>
 <div class="eth-orb eth-orb-1" aria-hidden="true"></div>
@@ -721,7 +805,6 @@
 <div class="eth-orb eth-orb-3" aria-hidden="true"></div>
 <div class="eth-orb eth-orb-4" aria-hidden="true"></div>
 
-<!-- ═════════════════════════ PAGE ══════════════════════════ -->
 <div id="page">
 
   <!-- ── Navigation ─────────────────────────────────────── -->
@@ -737,7 +820,6 @@
 ══════════════════════════════════════════════════════════ -->
 <section id="hero" aria-labelledby="hero-name">
 
-  <!-- Clickable signature → gallery -->
   <a class="hero-sig-link"
      href="#gallery"
      aria-label="Go to gallery">
@@ -754,7 +836,6 @@
     <div class="beacon-line"></div>
   </div>
 
-  <!-- Instagram -->
   <div class="footer-social">
     <a class="social-pill"
        href="https://www.instagram.com/mary_soul_art?igsh=dnIxaWJqemg3MXJi"
@@ -817,6 +898,7 @@
 
   <!-- ══════════════════════════════════════════════════════
        MAIN GALLERY
+       → To change description: edit data-desc AND .cap-desc
   ══════════════════════════════════════════════════════════ -->
   <section id="gallery" aria-labelledby="gallery-title">
     <div class="section-wrap">
@@ -830,52 +912,92 @@
       <div class="gallery-perspective">
         <div class="gallery-grid" id="gallery-grid" role="list">
 
-          <div class="painting" role="listitem" data-title="Reverie No. I" data-meta="2023 · Mixed Media">
+          <div class="painting" role="listitem"
+               data-title="Reverie No. I"
+               data-desc="الوصف هنا — اكتب وصف اللوحة هنا. يمكنك الكتابة بالعربية أو الإنجليزية، وسيظهر الوصف كاملاً عند الضغط على اللوحة.">
             <div class="frame"><div class="frame-inner"><img src="img/art1.png" alt="Reverie No. I — Maryam Hany" loading="lazy" /></div></div>
             <div class="painting-veil" aria-hidden="true"></div>
-            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Maryam Hany</span><span class="cap-meta">name</span></div>
+            <div class="painting-caption" aria-hidden="true">
+              <span class="cap-title">Reverie No. I</span>
+              <span class="cap-desc">الوصف هنا — اكتب وصف اللوحة هنا.</span>
+            </div>
           </div>
 
-          <div class="painting" role="listitem" data-title="The Dissolving Hour" data-meta="2023 · Digital Canvas">
-            <div class="frame"><div class="frame-inner"><img src="img/art2.png" alt="Maryam Hany" loading="lazy" /></div></div>
+          <div class="painting" role="listitem"
+               data-title="The Dissolving Hour"
+               data-desc="الوصف هنا — اكتب وصف اللوحة هنا. يمكنك الكتابة بالعربية أو الإنجليزية، وسيظهر الوصف كاملاً عند الضغط على اللوحة.">
+            <div class="frame"><div class="frame-inner"><img src="img/art2.png" alt="The Dissolving Hour — Maryam Hany" loading="lazy" /></div></div>
             <div class="painting-veil" aria-hidden="true"></div>
-            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Maryam Hany</span><span class="cap-meta">name</span></div>
+            <div class="painting-caption" aria-hidden="true">
+              <span class="cap-title">The Dissolving Hour</span>
+              <span class="cap-desc">الوصف هنا — اكتب وصف اللوحة هنا.</span>
+            </div>
           </div>
 
-          <div class="painting" role="listitem" data-title="Echoes of Amber" data-meta="2024 · Acrylic &amp; Oil">
-            <div class="frame"><div class="frame-inner"><img src="img/art3.png" alt="Maryam Hany" loading="lazy" /></div></div>
+          <div class="painting" role="listitem"
+               data-title="Echoes of Amber"
+               data-desc="الوصف هنا — اكتب وصف اللوحة هنا. يمكنك الكتابة بالعربية أو الإنجليزية، وسيظهر الوصف كاملاً عند الضغط على اللوحة.">
+            <div class="frame"><div class="frame-inner"><img src="img/art3.png" alt="Echoes of Amber — Maryam Hany" loading="lazy" /></div></div>
             <div class="painting-veil" aria-hidden="true"></div>
-            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Maryam Hany</span><span class="cap-meta">name</span></div>
+            <div class="painting-caption" aria-hidden="true">
+              <span class="cap-title">Echoes of Amber</span>
+              <span class="cap-desc">الوصف هنا — اكتب وصف اللوحة هنا.</span>
+            </div>
           </div>
 
-          <div class="painting" role="listitem" data-title="Void Cartography" data-meta="2024 · Digital">
-            <div class="frame"><div class="frame-inner"><img src="img/art4.png" alt="Maryam Hany" loading="lazy" /></div></div>
+          <div class="painting" role="listitem"
+               data-title="Void Cartography"
+               data-desc="الوصف هنا — اكتب وصف اللوحة هنا. يمكنك الكتابة بالعربية أو الإنجليزية، وسيظهر الوصف كاملاً عند الضغط على اللوحة.">
+            <div class="frame"><div class="frame-inner"><img src="img/art4.png" alt="Void Cartography — Maryam Hany" loading="lazy" /></div></div>
             <div class="painting-veil" aria-hidden="true"></div>
-            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Maryam Hany</span><span class="cap-meta">name</span></div>
+            <div class="painting-caption" aria-hidden="true">
+              <span class="cap-title">Void Cartography</span>
+              <span class="cap-desc">الوصف هنا — اكتب وصف اللوحة هنا.</span>
+            </div>
           </div>
 
-          <div class="painting" role="listitem" data-title="Threshold" data-meta="2024 · Mixed Media">
-            <div class="frame"><div class="frame-inner"><img src="img/art5.png" alt="Maryam Hany" loading="lazy" /></div></div>
+          <div class="painting" role="listitem"
+               data-title="Threshold"
+               data-desc="الوصف هنا — اكتب وصف اللوحة هنا. يمكنك الكتابة بالعربية أو الإنجليزية، وسيظهر الوصف كاملاً عند الضغط على اللوحة.">
+            <div class="frame"><div class="frame-inner"><img src="img/art5.png" alt="Threshold — Maryam Hany" loading="lazy" /></div></div>
             <div class="painting-veil" aria-hidden="true"></div>
-            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Maryam Hany</span><span class="cap-meta">name</span></div>
+            <div class="painting-caption" aria-hidden="true">
+              <span class="cap-title">Threshold</span>
+              <span class="cap-desc">الوصف هنا — اكتب وصف اللوحة هنا.</span>
+            </div>
           </div>
 
-          <div class="painting" role="listitem" data-title="Lucid Architecture" data-meta="2024 · Oil on Board">
-            <div class="frame"><div class="frame-inner"><img src="img/art6.png" alt="Maryam Hany" loading="lazy" /></div></div>
+          <div class="painting" role="listitem"
+               data-title="Lucid Architecture"
+               data-desc="الوصف هنا — اكتب وصف اللوحة هنا. يمكنك الكتابة بالعربية أو الإنجليزية، وسيظهر الوصف كاملاً عند الضغط على اللوحة.">
+            <div class="frame"><div class="frame-inner"><img src="img/art6.png" alt="Lucid Architecture — Maryam Hany" loading="lazy" /></div></div>
             <div class="painting-veil" aria-hidden="true"></div>
-            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Maryam Hany</span><span class="cap-meta">name</span></div>
+            <div class="painting-caption" aria-hidden="true">
+              <span class="cap-title">Lucid Architecture</span>
+              <span class="cap-desc">الوصف هنا — اكتب وصف اللوحة هنا.</span>
+            </div>
           </div>
 
-          <div class="painting" role="listitem" data-title="The Membrane" data-meta="2025 · Digital Canvas">
-            <div class="frame"><div class="frame-inner"><img src="img/art7.png" alt="Maryam Hany" loading="lazy" /></div></div>
+          <div class="painting" role="listitem"
+               data-title="The Membrane"
+               data-desc="الوصف هنا — اكتب وصف اللوحة هنا. يمكنك الكتابة بالعربية أو الإنجليزية، وسيظهر الوصف كاملاً عند الضغط على اللوحة.">
+            <div class="frame"><div class="frame-inner"><img src="img/art7.png" alt="The Membrane — Maryam Hany" loading="lazy" /></div></div>
             <div class="painting-veil" aria-hidden="true"></div>
-            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Maryam Hany</span><span class="cap-meta">name</span></div>
+            <div class="painting-caption" aria-hidden="true">
+              <span class="cap-title">The Membrane</span>
+              <span class="cap-desc">الوصف هنا — اكتب وصف اللوحة هنا.</span>
+            </div>
           </div>
 
-          <div class="painting" role="listitem" data-title="Astral Cartographer" data-meta="2025 · Mixed Media">
-            <div class="frame"><div class="frame-inner"><img src="img/art8.png" alt="Maryam Hany" loading="lazy" /></div></div>
+          <div class="painting" role="listitem"
+               data-title="Astral Cartographer"
+               data-desc="الوصف هنا — اكتب وصف اللوحة هنا. يمكنك الكتابة بالعربية أو الإنجليزية، وسيظهر الوصف كاملاً عند الضغط على اللوحة.">
+            <div class="frame"><div class="frame-inner"><img src="img/art8.png" alt="Astral Cartographer — Maryam Hany" loading="lazy" /></div></div>
             <div class="painting-veil" aria-hidden="true"></div>
-            <div class="painting-caption" aria-hidden="true"><span class="cap-title">Maryam Hany</span><span class="cap-meta">name</span></div>
+            <div class="painting-caption" aria-hidden="true">
+              <span class="cap-title">Astral Cartographer</span>
+              <span class="cap-desc">الوصف هنا — اكتب وصف اللوحة هنا.</span>
+            </div>
           </div>
 
         </div>
@@ -891,7 +1013,7 @@
   </div>
 
   <!-- ══════════════════════════════════════════════════════
-       STORY GALLERY — cinematic filmstrip
+       STORY GALLERY
   ══════════════════════════════════════════════════════════ -->
   <section id="story-gallery" aria-labelledby="story-title">
     <div class="section-wrap">
@@ -903,74 +1025,116 @@
         <div class="section-rule" aria-hidden="true"></div>
       </header>
 
-      <!-- Row 1: Wide | Narrow | Medium -->
       <div class="story-strip story-strip-r1" id="story-r1" role="list">
 
-        <div class="painting" role="listitem" data-title="Origin Study" data-meta="Process · 2023">
+        <div class="painting" role="listitem"
+             data-title="Origin Study"
+             data-desc="الوصف هنا — اكتب وصف اللوحة هنا.">
           <div class="frame"><div class="frame-inner"><img src="img/story1.png" alt="Origin Study — Maryam Hany" loading="lazy" /></div></div>
           <div class="painting-veil" aria-hidden="true"></div>
-          <div class="painting-caption" aria-hidden="true"><span class="cap-title">Origin Study</span><span class="cap-meta">Process · 2023</span></div>
+          <div class="painting-caption" aria-hidden="true">
+            <span class="cap-title">Origin Study</span>
+            <span class="cap-desc">الوصف هنا — اكتب وصف اللوحة هنا.</span>
+          </div>
         </div>
 
-        <div class="painting" role="listitem" data-title="Sketch I" data-meta="Charcoal · 2023">
+        <div class="painting" role="listitem"
+             data-title="Sketch I"
+             data-desc="الوصف هنا — اكتب وصف اللوحة هنا.">
           <div class="frame"><div class="frame-inner"><img src="img/story2.png" alt="Sketch I — Maryam Hany" loading="lazy" /></div></div>
           <div class="painting-veil" aria-hidden="true"></div>
-          <div class="painting-caption" aria-hidden="true"><span class="cap-title">Sketch I</span><span class="cap-meta">Charcoal · 2023</span></div>
+          <div class="painting-caption" aria-hidden="true">
+            <span class="cap-title">Sketch I</span>
+            <span class="cap-desc">الوصف هنا — اكتب وصف اللوحة هنا.</span>
+          </div>
         </div>
 
-        <div class="painting" role="listitem" data-title="First Light" data-meta="Study · 2024">
+        <div class="painting" role="listitem"
+             data-title="First Light"
+             data-desc="الوصف هنا — اكتب وصف اللوحة هنا.">
           <div class="frame"><div class="frame-inner"><img src="img/story3.png" alt="First Light — Maryam Hany" loading="lazy" /></div></div>
           <div class="painting-veil" aria-hidden="true"></div>
-          <div class="painting-caption" aria-hidden="true"><span class="cap-title">First Light</span><span class="cap-meta">Study · 2024</span></div>
+          <div class="painting-caption" aria-hidden="true">
+            <span class="cap-title">First Light</span>
+            <span class="cap-desc">الوصف هنا — اكتب وصف اللوحة هنا.</span>
+          </div>
         </div>
 
-      </div><!-- /row-1 -->
+      </div>
 
-      <!-- Row 2: Narrow | Wide -->
-      <div class="story-strip story-strip-r2" id="story-r2" role="list">
+      <div class="story-strip story-strip-r2" id="story-r2" role="list" style="margin-top: 22px;">
 
-        <div class="painting" role="listitem" data-title="Under the Fog" data-meta="Process · 2024">
+        <div class="painting" role="listitem"
+             data-title="Under the Fog"
+             data-desc="الوصف هنا — اكتب وصف اللوحة هنا.">
           <div class="frame"><div class="frame-inner"><img src="img/story4.png" alt="Under the Fog — Maryam Hany" loading="lazy" /></div></div>
           <div class="painting-veil" aria-hidden="true"></div>
-          <div class="painting-caption" aria-hidden="true"><span class="cap-title">Under the Fog</span><span class="cap-meta">Process · 2024</span></div>
+          <div class="painting-caption" aria-hidden="true">
+            <span class="cap-title">Under the Fog</span>
+            <span class="cap-desc">الوصف هنا — اكتب وصف اللوحة هنا.</span>
+          </div>
         </div>
 
-        <div class="painting" role="listitem" data-title="The Unfolding" data-meta="Mixed · 2024">
+        <div class="painting" role="listitem"
+             data-title="The Unfolding"
+             data-desc="الوصف هنا — اكتب وصف اللوحة هنا.">
           <div class="frame"><div class="frame-inner"><img src="img/story5.png" alt="The Unfolding — Maryam Hany" loading="lazy" /></div></div>
           <div class="painting-veil" aria-hidden="true"></div>
-          <div class="painting-caption" aria-hidden="true"><span class="cap-title">The Unfolding</span><span class="cap-meta">Mixed · 2024</span></div>
+          <div class="painting-caption" aria-hidden="true">
+            <span class="cap-title">The Unfolding</span>
+            <span class="cap-desc">الوصف هنا — اكتب وصف اللوحة هنا.</span>
+          </div>
         </div>
 
-      </div><!-- /row-2 -->
+      </div>
 
-      <!-- Row 3: Four equal -->
-      <div class="story-strip story-strip-r3" id="story-r3" role="list">
+      <div class="story-strip story-strip-r3" id="story-r3" role="list" style="margin-top: 22px;">
 
-        <div class="painting" role="listitem" data-title="Fragments I" data-meta="2024">
+        <div class="painting" role="listitem"
+             data-title="Fragments I"
+             data-desc="الوصف هنا — اكتب وصف اللوحة هنا.">
           <div class="frame"><div class="frame-inner"><img src="img/story6.png" alt="Fragments I — Maryam Hany" loading="lazy" /></div></div>
           <div class="painting-veil" aria-hidden="true"></div>
-          <div class="painting-caption" aria-hidden="true"><span class="cap-title">Fragments I</span><span class="cap-meta">2024</span></div>
+          <div class="painting-caption" aria-hidden="true">
+            <span class="cap-title">Fragments I</span>
+            <span class="cap-desc">الوصف هنا — اكتب وصف اللوحة هنا.</span>
+          </div>
         </div>
 
-        <div class="painting" role="listitem" data-title="Fragments II" data-meta="2024">
+        <div class="painting" role="listitem"
+             data-title="Fragments II"
+             data-desc="الوصف هنا — اكتب وصف اللوحة هنا.">
           <div class="frame"><div class="frame-inner"><img src="img/story7.png" alt="Fragments II — Maryam Hany" loading="lazy" /></div></div>
           <div class="painting-veil" aria-hidden="true"></div>
-          <div class="painting-caption" aria-hidden="true"><span class="cap-title">Fragments II</span><span class="cap-meta">2024</span></div>
+          <div class="painting-caption" aria-hidden="true">
+            <span class="cap-title">Fragments II</span>
+            <span class="cap-desc">الوصف هنا — اكتب وصف اللوحة هنا.</span>
+          </div>
         </div>
 
-        <div class="painting" role="listitem" data-title="Residue" data-meta="2025">
+        <div class="painting" role="listitem"
+             data-title="Residue"
+             data-desc="الوصف هنا — اكتب وصف اللوحة هنا.">
           <div class="frame"><div class="frame-inner"><img src="img/story8.png" alt="Residue — Maryam Hany" loading="lazy" /></div></div>
           <div class="painting-veil" aria-hidden="true"></div>
-          <div class="painting-caption" aria-hidden="true"><span class="cap-title">Residue</span><span class="cap-meta">2025</span></div>
+          <div class="painting-caption" aria-hidden="true">
+            <span class="cap-title">Residue</span>
+            <span class="cap-desc">الوصف هنا — اكتب وصف اللوحة هنا.</span>
+          </div>
         </div>
 
-        <div class="painting" role="listitem" data-title="After Midnight" data-meta="2025">
+        <div class="painting" role="listitem"
+             data-title="After Midnight"
+             data-desc="الوصف هنا — اكتب وصف اللوحة هنا.">
           <div class="frame"><div class="frame-inner"><img src="img/story9.png" alt="After Midnight — Maryam Hany" loading="lazy" /></div></div>
           <div class="painting-veil" aria-hidden="true"></div>
-          <div class="painting-caption" aria-hidden="true"><span class="cap-title">After Midnight</span><span class="cap-meta">2025</span></div>
+          <div class="painting-caption" aria-hidden="true">
+            <span class="cap-title">After Midnight</span>
+            <span class="cap-desc">الوصف هنا — اكتب وصف اللوحة هنا.</span>
+          </div>
         </div>
 
-      </div><!-- /row-3 -->
+      </div>
 
     </div>
   </section>
@@ -988,7 +1152,6 @@
            href="https://www.instagram.com/mary_soul_art?igsh=dnIxaWJqemg3MXJi"
            target="_blank" rel="noopener noreferrer"
            aria-label="Maryam Hany on Instagram — @mary_soul_art">
-          <!-- Instagram SVG -->
           <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
             <circle cx="12" cy="12" r="4.5"/>
@@ -999,7 +1162,6 @@
       </div>
 
       <div class="footer-legal">
-        <!-- Dynamic year via JS -->
         <p class="footer-copyright">
           &copy; <span id="footer-year"></span> Maryam Hany.
           All artworks and imagery are the exclusive intellectual property of the artist.
@@ -1021,53 +1183,65 @@
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork viewer" aria-hidden="true">
   <div id="lb-wrap">
     <span id="lb-close" role="button" tabindex="0" aria-label="Close artwork viewer">&#10005;&nbsp; Close</span>
-    <img id="lb-img" src="" alt="" />
-    <div id="lb-info" aria-live="polite"></div>
+    <div id="lb-stage">
+      <img id="lb-img" src="" alt="" />
+    </div>
+    <div id="lb-panel">
+      <div id="lb-title"></div>
+      <div id="lb-desc"></div>
+    </div>
   </div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════
-     JAVASCRIPT
+     JAVASCRIPT — single, consolidated, bug-free, with fallbacks
 ══════════════════════════════════════════════════════════════ -->
 <script>
+/* Remove no-js class immediately */
+document.documentElement.classList.remove('no-js');
+
 window.addEventListener('load', () => {
+  /* ═══ SAFETY CHECKS ═══ */
+  const HAS_GSAP  = typeof gsap  !== 'undefined';
+  const HAS_LENIS = typeof Lenis !== 'undefined';
+  const HAS_THREE = typeof THREE !== 'undefined';
 
-  /* ═══════════════════════════════════════════════
-     0 · Dynamic copyright year
-  ═══════════════════════════════════════════════ */
-  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  if (!HAS_GSAP) {
+    console.warn('GSAP not loaded — revealing content without animations.');
+    document.querySelectorAll(
+      '.hero-sig-link, .section-header, .bio-aside, .bio-main, .painting, .footer-inner, #pull-bar, .scroll-beacon'
+    ).forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      el.style.filter = 'none';
+    });
+  }
 
-  /* ═══════════════════════════════════════════════
-     1 · Intro veil fade-out
-  ═══════════════════════════════════════════════ */
+  /* 0 · Year */
+  const yearEl = document.getElementById('footer-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  /* 1 · Intro veil */
   const veil = document.getElementById('intro-veil');
-  requestAnimationFrame(() => {
-    veil.style.opacity = '0';
-    setTimeout(() => (veil.style.display = 'none'), 2200);
-  });
+  if (veil) {
+    requestAnimationFrame(() => {
+      veil.style.opacity = '0';
+      setTimeout(() => (veil.style.display = 'none'), 2200);
+    });
+  }
 
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    dot.style.left = mx + 'px';
-    dot.style.top  = my + 'px';
-  });
-
-  (function tickRing() {
-    rx += (mx - rx) * 0.13;
-    ry += (my - ry) * 0.13;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-    requestAnimationFrame(tickRing);
-  })();
-
-
-
-  /* ═══════════════════════════════════════════════
-     3 · Three.js starfield + nebula clouds
-  ═══════════════════════════════════════════════ */
+  /* 2 · Three.js starfield */
   (function initThree() {
-    const canvas   = document.getElementById('bg-canvas');
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+    if (!HAS_THREE) return;
+    const canvas = document.getElementById('bg-canvas');
+    if (!canvas) return;
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+    } catch (e) {
+      console.warn('WebGL unavailable — skipping starfield.');
+      return;
+    }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.8));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x000000, 0);
@@ -1076,7 +1250,6 @@ window.addEventListener('load', () => {
     const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.z = 90;
 
-    /* Star layers */
     const mkStars = (n, spread, size, color) => {
       const pos = new Float32Array(n * 3);
       for (let i = 0; i < n * 3; i++) pos[i] = (Math.random() - .5) * spread;
@@ -1086,13 +1259,11 @@ window.addEventListener('load', () => {
         color, size, transparent: true, opacity: .5, sizeAttenuation: true
       }));
     };
-
     const s1 = mkStars(3500, 450, .25, 0xffffff);
     const s2 = mkStars(1400, 320, .50, 0xc4b0ff);
     const s3 = mkStars( 600, 240, .80, 0xffcce0);
     scene.add(s1, s2, s3);
 
-    /* Nebula planes */
     const mkNebula = (x, y, z, rx, ry, col, op) => {
       const mesh = new THREE.Mesh(
         new THREE.PlaneGeometry(200, 150),
@@ -1105,19 +1276,16 @@ window.addEventListener('load', () => {
       mesh.rotation.set(rx, ry, 0);
       return mesh;
     };
-
     const n1 = mkNebula(-40,  25, -70,  .3,  .2, 0x2d1060, .09);
     const n2 = mkNebula( 50, -15, -90, -.2,  .4, 0x0d3055, .08);
     const n3 = mkNebula(  0,   0, -55,  .1,  .0, 0x5a1048, .06);
     scene.add(n1, n2, n3);
 
-    /* Mouse camera parallax */
     let ctX = 0, ctY = 0;
     document.addEventListener('mousemove', e => {
       ctX = (e.clientX / window.innerWidth  - .5) * 7;
       ctY = (e.clientY / window.innerHeight - .5) * -4;
     });
-
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -1127,7 +1295,6 @@ window.addEventListener('load', () => {
     let t = 0;
     const stars = [s1, s2, s3];
     const nebulas = [n1, n2, n3];
-
     (function render() {
       requestAnimationFrame(render);
       t += .0005;
@@ -1142,188 +1309,190 @@ window.addEventListener('load', () => {
     })();
   })();
 
-  /* ═══════════════════════════════════════════════
-     4 · Lenis smooth scroll + GSAP sync
-  ═══════════════════════════════════════════════ */
-  const lenis = new Lenis({
-    duration: 1.45,
-    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smooth: true,
-    smoothTouch: false
-  });
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add(time => lenis.raf(time * 1000));
-  gsap.ticker.lagSmoothing(0);
+  /* 3 · Lenis + GSAP */
+  let lenis = null;
+  if (HAS_LENIS && HAS_GSAP) {
+    lenis = new Lenis({
+      duration: 1.45,
+      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smooth: true,
+      smoothTouch: false
+    });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(time => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
 
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href');
+        if (!id || id === '#') return;
+        const target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        lenis.scrollTo(target, { duration: 1.6 });
+      });
+    });
+  }
 
-  /* ═══════════════════════════════════════════════
-     5 · Living Dreamscape — mouse + scroll parallax
-  ═══════════════════════════════════════════════ */
+  /* 4 · Parallax (mesh + orbs) */
   const mesh = document.getElementById('gradient-mesh');
   const orbs = [...document.querySelectorAll('.eth-orb')];
-
-  document.addEventListener('mousemove', e => {
-    const px = (e.clientX / window.innerWidth  - .5) * 28;
-    const py = (e.clientY / window.innerHeight - .5) * 18;
-    mesh.style.transform = `translate(${px}px, ${py}px)`;
-  });
-
-  lenis.on('scroll', ({ scroll }) => {
+  if (mesh) {
+    document.addEventListener('mousemove', e => {
+      const px = (e.clientX / window.innerWidth  - .5) * 28;
+      const py = (e.clientY / window.innerHeight - .5) * 18;
+      mesh.style.transform = `translate(${px}px, ${py}px)`;
+    });
+  }
+  const onScroll = ({ scroll }) => {
     orbs.forEach((o, i) => {
       const speed = [.16, .26, .20, .13][i];
       o.style.transform = `translateY(${scroll * speed}px)`;
     });
-  });
+    const nav = document.getElementById('nav');
+    if (nav) nav.classList.toggle('scrolled', scroll > 55);
+  };
+  if (lenis) lenis.on('scroll', onScroll);
+  else window.addEventListener('scroll', () => onScroll({ scroll: window.scrollY }));
 
-  /* ═══════════════════════════════════════════════
-     6 · Navbar scroll state
-  ═══════════════════════════════════════════════ */
-  const nav = document.getElementById('nav');
-  lenis.on('scroll', ({ scroll }) => nav.classList.toggle('scrolled', scroll > 55));
+  /* 5 · GSAP animations */
+  if (HAS_GSAP) {
+    gsap.registerPlugin(ScrollTrigger);
 
-  /* ═══════════════════════════════════════════════
-     7 · GSAP ScrollTrigger animations
-  ═══════════════════════════════════════════════ */
-  gsap.registerPlugin(ScrollTrigger);
+    const heroTl = gsap.timeline({ delay: .85 });
+    heroTl
+      .to('.hero-sig-link', { opacity: 1, duration: .01 })
+      .from('.name-sub',    { y: 30, opacity: 0, filter: 'blur(20px)', duration: 1.4, ease: 'power3.out' })
+      .from('.sig-divider', { scaleX: 0, opacity: 0, duration: .7, ease: 'power2.out' }, '-=.6')
+      .from('.name-sign',   { y: -25, opacity: 0, filter: 'blur(18px)', duration: 2.1, ease: 'power3.out' }, '-=1.0')
+      .from('.sig-visit-hint', { opacity: 0, y: 6, duration: 1, ease: 'power2.out' }, '-=.5')
+      .to('#scroll-beacon', { opacity: 1, duration: 1, ease: 'power1.out' }, '-=.2');
 
-  /* Hero reveal — cinematic cascade */
-  const heroTl = gsap.timeline({ delay: .85 });
-  heroTl
-    .to('#hero-sig-link', { opacity: 1, duration: .01 })
-    .from('.name-sub',    { y: 30, opacity: 0, filter: 'blur(20px)', duration: 1.4, ease: 'power3.out' })
-    .from('.sig-divider', { scaleX: 0, opacity: 0, duration: .7, ease: 'power2.out' }, '-=.6')
-    .from('.name-sign',   { y: -25, opacity: 0, filter: 'blur(18px)', duration: 2.1, ease: 'power3.out' }, '-=1.0')
-    .from('.sig-visit-hint', { opacity: 0, y: 6, duration: 1, ease: 'power2.out' }, '-=.5')
-    .to('#hero .hero-tagline', { opacity: 1, y: 0, duration: 1.1, ease: 'power2.out' }, '-=.6')
-    .to('#scroll-beacon', { opacity: 1, duration: 1, ease: 'power1.out' }, '-=.2');
-
-  /* Bio */
-  gsap.fromTo('.bio-aside',
-    { opacity: 0, x: -50 },
-    { opacity: 1, x: 0, duration: 1.5, ease: 'power3.out',
-      scrollTrigger: { trigger: '#bio', start: 'top 78%' } }
-  );
-  gsap.fromTo('.bio-main',
-    { opacity: 0, y: 55, filter: 'blur(12px)' },
-    { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.7, ease: 'power3.out',
-      scrollTrigger: { trigger: '#bio', start: 'top 75%' } }
-  );
-
-  /* Section headers */
-  ['#gallery-header', '#story-header'].forEach(s => {
-    gsap.fromTo(s,
-      { opacity: 0, y: 42, filter: 'blur(8px)' },
-      { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.3, ease: 'power2.out',
-        scrollTrigger: { trigger: s, start: 'top 82%' } }
+    gsap.fromTo('.bio-aside',
+      { opacity: 0, x: -50 },
+      { opacity: 1, x: 0, duration: 1.5, ease: 'power3.out',
+        scrollTrigger: { trigger: '#bio', start: 'top 78%' } }
     );
-  });
-
-  /* Main gallery stagger */
-  gsap.fromTo('#gallery-grid .painting',
-    { opacity: 0, y: 75, rotateX: 18, filter: 'blur(10px)' },
-    { opacity: 1, y: 0, rotateX: 0, filter: 'blur(0px)',
-      duration: 1.45, ease: 'power3.out',
-      stagger: { amount: 1.5, from: 'start' },
-      scrollTrigger: { trigger: '#gallery-grid', start: 'top 88%' } }
-  );
-
-  /* Pull bar */
-  gsap.fromTo('#pull-bar',
-    { opacity: 0, scaleX: .55 },
-    { opacity: 1, scaleX: 1, duration: 1.3, ease: 'power2.out',
-      scrollTrigger: { trigger: '#pull-bar', start: 'top 86%' } }
-  );
-
-  /* Story gallery — directional slide per row */
-  [
-    { id: '#story-r1', from: { x: -70, opacity: 0, filter: 'blur(10px)' } },
-    { id: '#story-r2', from: { x:  70, opacity: 0, filter: 'blur(10px)' } },
-    { id: '#story-r3', from: { y:  55, opacity: 0, filter: 'blur(10px)' } },
-  ].forEach(({ id, from }) => {
-    gsap.fromTo(`${id} .painting`, from,
-      { x: 0, y: 0, opacity: 1, filter: 'blur(0px)',
-        duration: 1.38, ease: 'power3.out',
-        stagger: .11,
-        scrollTrigger: { trigger: id, start: 'top 87%' } }
+    gsap.fromTo('.bio-main',
+      { opacity: 0, y: 55, filter: 'blur(12px)' },
+      { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.7, ease: 'power3.out',
+        scrollTrigger: { trigger: '#bio', start: 'top 75%' } }
     );
-  });
 
-  /* Footer */
-  gsap.fromTo('#footer-inner',
-    { opacity: 0, y: 55 },
-    { opacity: 1, y: 0, duration: 1.5, ease: 'power2.out',
-      scrollTrigger: { trigger: '#footer', start: 'top 82%' } }
-  );
+    ['#gallery-header', '#story-header'].forEach(s => {
+      gsap.fromTo(s,
+        { opacity: 0, y: 42, filter: 'blur(8px)' },
+        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.3, ease: 'power2.out',
+          scrollTrigger: { trigger: s, start: 'top 82%' } }
+      );
+    });
 
-  /* ═══════════════════════════════════════════════
-     8 · 3D tilt — all paintings
-  ═══════════════════════════════════════════════ */
+    gsap.fromTo('#gallery-grid .painting',
+      { opacity: 0, y: 75, rotateX: 18, filter: 'blur(10px)' },
+      { opacity: 1, y: 0, rotateX: 0, filter: 'blur(0px)',
+        duration: 1.45, ease: 'power3.out',
+        stagger: { amount: 1.5, from: 'start' },
+        scrollTrigger: { trigger: '#gallery-grid', start: 'top 88%' } }
+    );
+
+    gsap.fromTo('#pull-bar',
+      { opacity: 0, scaleX: .55 },
+      { opacity: 1, scaleX: 1, duration: 1.3, ease: 'power2.out',
+        scrollTrigger: { trigger: '#pull-bar', start: 'top 86%' } }
+    );
+
+    [
+      { id: '#story-r1', from: { x: -70, opacity: 0, filter: 'blur(10px)' } },
+      { id: '#story-r2', from: { x:  70, opacity: 0, filter: 'blur(10px)' } },
+      { id: '#story-r3', from: { y:  55, opacity: 0, filter: 'blur(10px)' } },
+    ].forEach(({ id, from }) => {
+      gsap.fromTo(`${id} .painting`, from,
+        { x: 0, y: 0, opacity: 1, filter: 'blur(0px)',
+          duration: 1.38, ease: 'power3.out',
+          stagger: .11,
+          scrollTrigger: { trigger: id, start: 'top 87%' } }
+      );
+    });
+
+    gsap.fromTo('#footer-inner',
+      { opacity: 0, y: 55 },
+      { opacity: 1, y: 0, duration: 1.5, ease: 'power2.out',
+        scrollTrigger: { trigger: '#footer', start: 'top 82%' } }
+    );
+  }
+
+  /* 6 · 3D tilt */
   document.querySelectorAll('.painting').forEach(card => {
     const frame = card.querySelector('.frame');
-
+    if (!frame) return;
     card.addEventListener('mousemove', e => {
       const r = card.getBoundingClientRect();
       const nx = (e.clientX - r.left - r.width  / 2) / (r.width  / 2);
       const ny = (e.clientY - r.top  - r.height / 2) / (r.height / 2);
-      frame.style.transform = `
-        perspective(900px)
-        rotateX(${ny * -9}deg)
-        rotateY(${nx *  13}deg)
-        translateZ(22px)
-        scale(1.025)
-      `;
+      frame.style.transform = `perspective(900px) rotateX(${ny * -9}deg) rotateY(${nx * 13}deg) translateZ(22px) scale(1.025)`;
     });
-
     card.addEventListener('mouseleave', () => {
       frame.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateZ(0) scale(1)';
     });
   });
 
-  /* ═══════════════════════════════════════════════
-     9 · Lightbox
-  ═══════════════════════════════════════════════ */
-  const lb     = document.getElementById('lightbox');
-  const lbImg  = document.getElementById('lb-img');
-  const lbInfo = document.getElementById('lb-info');
-  const lbX    = document.getElementById('lb-close');
+  /* 7 · Lightbox */
+  const lb      = document.getElementById('lightbox');
+  const lbImg   = document.getElementById('lb-img');
+  const lbTitle = document.getElementById('lb-title');
+  const lbDesc  = document.getElementById('lb-desc');
+  const lbX     = document.getElementById('lb-close');
 
   const openLB = card => {
-    lbImg.src = card.querySelector('img').src;
-    lbImg.alt = card.querySelector('img').alt;
-    lbInfo.textContent = [card.dataset.title, card.dataset.meta].filter(Boolean).join('  ·  ');
+    const img   = card.querySelector('img');
+    const src   = img ? img.src : '';
+    const alt   = img ? img.alt : '';
+    const title = card.dataset.title || '';
+    const desc  = card.dataset.desc  || '';
+    lbImg.classList.add('loading');
+    lbImg.src = src; lbImg.alt = alt;
+    lbImg.onload = () => lbImg.classList.remove('loading');
+    lbTitle.textContent = title;
+    lbDesc.textContent  = desc;
     lb.classList.add('open');
     lb.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
-    lenis.stop();
+    if (lenis) lenis.stop();
   };
-
   const closeLB = () => {
     lb.classList.remove('open');
     lb.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
-    lenis.start();
-    setTimeout(() => { lbImg.src = ''; lbInfo.textContent = ''; }, 700);
+    if (lenis) lenis.start();
+    setTimeout(() => {
+      lbImg.src = ''; lbTitle.textContent = ''; lbDesc.textContent = '';
+    }, 700);
   };
-
   document.querySelectorAll('.painting').forEach(c => c.addEventListener('click', () => openLB(c)));
-  lbX.addEventListener('click', closeLB);
-  lbX.addEventListener('keydown', e => e.key === 'Enter' && closeLB());
-  lb.addEventListener('click', e => { if (e.target === lb) closeLB(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contains('open')) closeLB(); });
-
-  /* ═══════════════════════════════════════════════
-     10 · Hero name subtle mouse parallax
-  ═══════════════════════════════════════════════ */
-  const sigLink = document.getElementById('hero-sig-link');
-  document.addEventListener('mousemove', e => {
-    const dx = (e.clientX / window.innerWidth  - .5) * 18;
-    const dy = (e.clientY / window.innerHeight - .5) *  9;
-    sigLink.style.transform = `translate(${dx}px, ${dy}px)`;
+  if (lbX) {
+    lbX.addEventListener('click', closeLB);
+    lbX.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); closeLB(); }
+    });
+  }
+  if (lb) {
+    lb.addEventListener('click', e => { if (e.target === lb) closeLB(); });
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && lb.classList.contains('open')) closeLB();
   });
 
-  /* ═══════════════════════════════════════════════
-     11 · CSS dust motes
-  ═══════════════════════════════════════════════ */
+  /* 8 · Hero name parallax */
+  const sigLink = document.querySelector('.hero-sig-link');
+  if (sigLink) {
+    document.addEventListener('mousemove', e => {
+      const dx = (e.clientX / window.innerWidth  - .5) * 18;
+      const dy = (e.clientY / window.innerHeight - .5) *  9;
+      sigLink.style.transform = `translate(${dx}px, ${dy}px)`;
+    });
+  }
+
+  /* 9 · Dust motes */
   for (let i = 0; i < 38; i++) {
     const d = document.createElement('div');
     d.classList.add('dust');
@@ -1338,44 +1507,6 @@ window.addEventListener('load', () => {
     `;
     document.body.appendChild(d);
   }
-
-}); /* end load */
-</script>
-<script>
-gsap.registerPlugin(ScrollTrigger);
-
-// HERO
-gsap.to(".hero-sig-link", {
-  opacity: 1,
-  y: 0,
-  duration: 1.6,
-  ease: "power3.out",
-  delay: 0.6
-});
-
-gsap.to(".hero-tagline", {
-  opacity: 1,
-  delay: 1.4
-});
-
-gsap.to("#scroll-beacon", {
-  opacity: 1,
-  delay: 1.8
-});
-
-// SECTIONS
-gsap.utils.toArray(".section-header, .bio-aside, .bio-main, .painting, .footer-inner")
-.forEach(el => {
-  gsap.to(el, {
-    opacity: 1,
-    y: 0,
-    duration: 1.4,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: el,
-      start: "top 85%"
-    }
-  });
 });
 </script>
 

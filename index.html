@@ -732,16 +732,160 @@
     font-size: .8rem; font-style: italic; font-family: var(--font-display);
     color: rgba(201, 197, 211, 0.671); letter-spacing: .06em;
   }
+ /* ═══════════════════════════════════════════════════════════════════
+   FOOTER CREDIT — highlighted signature pill
+══════════════════════════════════════════════════════════════════ */
+.footer-credit {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 22px;
+  margin-top: 1.2rem;
+
+  /* Ornate frame — matches site identity */
+  background: linear-gradient(160deg,
+    rgba(20, 15, 40, 0.55) 0%,
+    rgba(12, 9, 26, 0.7) 70%,
+    rgba(30, 18, 48, 0.55) 100%);
+  border: 1px solid rgba(212, 168, 71, 0.28);
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+
+  transition:
+    border-color .5s cubic-bezier(.2,.9,.3,1),
+    box-shadow .5s cubic-bezier(.2,.9,.3,1),
+    transform .5s cubic-bezier(.2,.9,.3,1);
+}
+
+/* Gold top accent line */
+.footer-credit::before {
+  content: '';
+  position: absolute; top: 0; left: 15%; right: 15%; height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(240, 208, 128, 0.65),
+    transparent);
+  transition: left .6s, right .6s;
+}
+
+/* Corner filigree */
+.footer-credit::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-top: 1px solid rgba(212, 168, 71, 0.18);
+  border-bottom: 1px solid rgba(212, 168, 71, 0.18);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .5s;
+}
+
+/* Shimmer sweep on hover */
+.footer-credit .credit-text::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(240, 208, 128, 0.12),
+    transparent);
+  transition: left .8s cubic-bezier(.2,.9,.3,1);
+  pointer-events: none;
+}
+
+.credit-glyph {
+  font-size: .55rem;
+  color: var(--gold);
+  filter: drop-shadow(0 0 6px var(--glow-gold));
+  transition: transform .5s, filter .5s;
+  display: inline-block;
+}
+
+.credit-text {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  position: relative;
+}
+
+.credit-prefix {
+  font-family: var(--font-label);
+  font-size: .5rem;
+  letter-spacing: .42em;
+  text-transform: uppercase;
+  color: rgba(156, 150, 176, 0.7);
+  transition: color .5s;
+}
+
+.credit-name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: .04em;
+
+  background: linear-gradient(135deg,
+    #f0d080 0%,
+    #d4a847 45%,
+    #b8862f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  filter: drop-shadow(0 0 8px rgba(212, 168, 71, 0.25));
+  transition: filter .5s, letter-spacing .5s;
+}
+
+/* ─── Hover state ─── */
+.footer-credit:hover {
+  border-color: rgba(240, 208, 128, 0.6);
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgba(212, 168, 71, 0.15),
+    0 0 40px rgba(212, 168, 71, 0.18),
+    0 0 90px rgba(139, 92, 246, 0.08),
+    0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+.footer-credit:hover::before { left: 5%; right: 5%; }
+.footer-credit:hover::after  { opacity: 1; }
+.footer-credit:hover .credit-text::before { left: 100%; }
+
+.footer-credit:hover .credit-glyph {
+  filter: drop-shadow(0 0 14px var(--glow-gold));
+  transform: rotate(180deg) scale(1.15);
+}
+.footer-credit:hover .credit-prefix { color: rgba(240, 208, 128, 0.85); }
+.footer-credit:hover .credit-name {
+  filter: drop-shadow(0 0 18px rgba(240, 208, 128, 0.6));
+  letter-spacing: .08em;
+}
+
+/* ─── Keyboard focus state ─── */
+.footer-credit:focus-visible {
+  outline: 2px solid rgba(240, 208, 128, 0.6);
+  outline-offset: 4px;
+}
+
+/* ─── Mobile adjustments ─── */
+@media (max-width: 768px) {
   .footer-credit {
-    font-family: var(--font-label);
-    font-size: .5rem; letter-spacing: .42em; text-transform: uppercase;
-    color: rgba(201, 197, 211, 0.671);
+    padding: 9px 16px;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
-  .footer-credit a {
-    color: rgba(199, 187, 161, 0.778); text-decoration: none;
-    transition: color .3s;
-  }
-  .footer-credit a:hover { color: var(--gold-pale); }
+  .credit-name { font-size: .95rem; }
+  .credit-prefix { font-size: .45rem; letter-spacing: .32em; }
+  .credit-glyph { font-size: .5rem; }
+}
+
+@media (max-width: 400px) {
+  .footer-credit { padding: 8px 12px; gap: 8px; }
+  .credit-name { font-size: .88rem; }
+}
 
   /* ═══════════════════════════════════════════════════════════════════
      DUST PARTICLES
@@ -791,6 +935,127 @@
       transform: none !important;
       filter: none !important;
     }
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════
+     MOBILE PERFORMANCE OVERRIDES — Desktop completely untouched
+     Only activates on mobile / tablet / touch devices
+  ═══════════════════════════════════════════════════════════════════ */
+
+  @media (max-width: 1024px) {
+    .eth-orb { filter: blur(50px); }
+    .eth-orb-1 { width: 380px; height: 380px; }
+    .eth-orb-2 { width: 300px; height: 300px; }
+    .eth-orb-3 { width: 340px; height: 340px; }
+    .eth-orb-4 { width: 220px; height: 220px; }
+
+    .painting-caption {
+      backdrop-filter: blur(10px) saturate(1.3);
+      -webkit-backdrop-filter: blur(10px) saturate(1.3);
+    }
+    #lb-panel { backdrop-filter: blur(12px); }
+    #lb-close { backdrop-filter: blur(6px); }
+
+    .name-sign {
+      filter: drop-shadow(0 0 24px rgba(139,92,246,.28));
+    }
+    .hero-sig-link:hover .name-sign {
+      filter: drop-shadow(0 0 40px rgba(212,168,71,.45));
+    }
+
+    #nav.scrolled {
+      backdrop-filter: blur(14px) saturate(1.2);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .eth-orb { filter: blur(30px); opacity: .55; animation: none; }
+    .eth-orb-1 { width: 240px; height: 240px; }
+    .eth-orb-2 { width: 180px; height: 180px; }
+    .eth-orb-3 { width: 220px; height: 220px; }
+    .eth-orb-4 { width: 140px; height: 140px; }
+
+    #gradient-mesh {
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 30%, rgba(79,70,229,.10) 0%, transparent 70%),
+        radial-gradient(ellipse 70% 60% at 80% 70%, rgba(224,96,149,.07) 0%, transparent 70%);
+    }
+
+    .painting-caption {
+      background: rgba(8, 6, 18, 0.78);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .painting:hover .frame {
+      box-shadow:
+        0 0 0 1px rgba(212,168,71,.28),
+        0 20px 50px rgba(0,0,0,.6);
+    }
+
+    .name-sign {
+      filter: drop-shadow(0 0 12px rgba(212,168,71,.35));
+      font-size: clamp(2.6rem, 12vw, 5rem);
+    }
+    .hero-sig-link:hover .name-sign { filter: none; }
+
+    .name-sub { filter: drop-shadow(0 0 8px rgba(224,96,149,.3)); }
+    .footer-sig { filter: none; }
+
+    .section-wrap {
+      padding: clamp(4rem, 10vh, 7rem) clamp(1.2rem, 5vw, 2rem);
+    }
+
+    .gallery-grid,
+    .story-strip {
+      grid-template-columns: 1fr;
+      gap: 26px;
+    }
+
+    #nav { padding: 1rem 1.2rem; }
+    .nav-logo { font-size: 1.5rem; }
+
+    #lb-wrap {
+      max-width: 94vw;
+      transform: scale(.9);
+      border-radius: 0;
+    }
+    #lightbox.open #lb-wrap { transform: scale(1); }
+    #lb-img { max-height: 42vh; }
+    #lb-panel { max-height: 34vh; padding: 16px 18px 18px; }
+    #lb-title { font-size: .6rem; letter-spacing: .22em; }
+    #lb-desc { font-size: .82rem; line-height: 1.7; }
+    #lb-close { top: 10px; right: 12px; font-size: .5rem; padding: 6px 10px; }
+
+    #intro-veil { transition-duration: 1s; }
+  }
+
+  @media (max-width: 400px) {
+    .eth-orb { opacity: .4; }
+    .name-sign { font-size: clamp(2rem, 14vw, 3.4rem); }
+    .section-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+    .bio-heading { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .eth-orb,
+    .dust,
+    .beacon-line { animation: none !important; }
+
+    #gradient-mesh { transform: none !important; }
+    .eth-orb { transform: none !important; }
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    .painting .frame { transition: none !important; }
+    .painting:hover .frame {
+      transform: none !important;
+      box-shadow:
+        0 4px 20px rgba(0,0,0,.5),
+        0 20px 60px rgba(0,0,0,.4);
+    }
+    .painting:hover img { filter: brightness(.88) saturate(1.05); }
+    .painting:hover .painting-veil { opacity: 1; }
   }
   </style>
 </head>
@@ -898,7 +1163,6 @@
 
   <!-- ══════════════════════════════════════════════════════
        MAIN GALLERY
-       → To change description: edit data-desc AND .cap-desc
   ══════════════════════════════════════════════════════════ -->
   <section id="gallery" aria-labelledby="gallery-title">
     <div class="section-wrap">
@@ -913,7 +1177,7 @@
         <div class="gallery-grid" id="gallery-grid" role="list">
 
           <div class="painting" role="listitem"
-               data-title="(قَالَ يَا آدَمُ هَلْ أَدُلُّكَ عَلَىٰ شَجَرَةِ الْخُلْدِ وَمُلْكٍ لَا يَبْلَىٰ)"
+               data-title="(قَالَ يَا آدَمُ هَلْ أَدُلُّكَ عَلَىٰ شَجَرَةِ الْخُلْدِ وَمُلْكٍ لَا يَبْلَىٰ)"
                data-desc="
 I had always believed temptation was hidden in immortality or perhaps in the promise of a kingdom But my father, Adam, already knew immortality. He was immortal in Paradise. God had taught him all things.
 And yet, somehow, I found myself asking:
@@ -1033,7 +1297,7 @@ She was not born from the earth as he was, but from him as though God had taken 
 
       <header class="section-header" id="story-header">
         <span class="section-eyebrow">Behind the Canvas</span>
-        <h2 class="section-title" id="story-title">The Story Gallery</h2>
+        <h2 class="section-title" id="story-title">S world</h2>
         <span class="section-sub">the process, the feeling, the becoming</span>
         <div class="section-rule" aria-hidden="true"></div>
       </header>
@@ -1041,34 +1305,34 @@ She was not born from the earth as he was, but from him as though God had taken 
       <div class="story-strip story-strip-r1" id="story-r1" role="list">
 
         <div class="painting" role="listitem"
-             data-title="Origin Study"
+             data-title="Mirga's Dream and the Father"
              data-desc="desc">
           <div class="frame"><div class="frame-inner"><img src="img/story1.png" alt="OMaryam Hany" loading="lazy" /></div></div>
           <div class="painting-veil" aria-hidden="true"></div>
           <div class="painting-caption" aria-hidden="true">
-            <span class="cap-title">name</span>
+            <span class="cap-title">Mirga's Dream and the Father</span>
             <span class="cap-desc">-</span>
           </div>
         </div>
 
         <div class="painting" role="listitem"
-             data-title="Origin Study"
+             data-title=" j and Gaia"
              data-desc="desc">
           <div class="frame"><div class="frame-inner"><img src="img/story2.png" alt="OMaryam Hany" loading="lazy" /></div></div>
           <div class="painting-veil" aria-hidden="true"></div>
           <div class="painting-caption" aria-hidden="true">
-            <span class="cap-title">name</span>
+            <span class="cap-title"> j and Gaia</span>
             <span class="cap-desc">-</span>
           </div>
         </div>
 
         <div class="painting" role="listitem"
-             data-title="Origin Study"
+             data-title="Merga"
              data-desc="desc">
-          <div class="frame"><div class="frame-inner"><img src="img/story3.png" alt="OMaryam Hany" loading="lazy" /></div></div>
+          <div class="frame"><div class="frame-inner"><img src="img/story3.png" alt="Maryam Hany" loading="lazy" /></div></div>
           <div class="painting-veil" aria-hidden="true"></div>
           <div class="painting-caption" aria-hidden="true">
-            <span class="cap-title">name</span>
+            <span class="cap-title">Merga</span>
             <span class="cap-desc">-</span>
           </div>
         </div>
@@ -1174,18 +1438,25 @@ She was not born from the earth as he was, but from him as though God had taken 
         </a>
       </div>
 
-      <div class="footer-legal">
-        <p class="footer-copyright">
-          &copy; <span id="footer-year"></span> Maryam Hany.
-          All artworks and imagery are the exclusive intellectual property of the artist.
-          Unauthorized reproduction is strictly prohibited.
-        </p>
-        <p class="footer-credit">
-          Website by:&nbsp;
-          <a href="https://alahmryousef-cmd.github.io/yousefalahmr-Bio/"
-             target="_blank" rel="noopener noreferrer">Yousef Alahmr -- click here </a>
-        </p>
-      </div>
+     <div class="footer-legal">
+  <p class="footer-copyright">
+    &copy; <span id="footer-year"></span> Maryam Hany.
+    All artworks and imagery are the exclusive intellectual property of the artist.
+    Unauthorized reproduction is strictly prohibited.
+  </p>
+
+  <a class="footer-credit"
+     href="https://alahmryousef-cmd.github.io/yousefalahmr-Bio/"
+     target="_blank" rel="noopener noreferrer"
+     aria-label="Website crafted by Yousef Alahmr">
+    <span class="credit-glyph">✦</span>
+    <span class="credit-text">
+      <span class="credit-prefix">created by</span>
+      <span class="credit-name">Yousef Alahmr</span>
+    </span>
+    <span class="credit-glyph">✦</span>
+  </a>
+</div>
 
     </div>
   </footer>
@@ -1207,11 +1478,17 @@ She was not born from the earth as he was, but from him as though God had taken 
 </div>
 
 <!-- ══════════════════════════════════════════════════════════
-     JAVASCRIPT — single, consolidated, bug-free, with fallbacks
+     JAVASCRIPT — consolidated, bug-free, with fallbacks
 ══════════════════════════════════════════════════════════════ -->
 <script>
 /* Remove no-js class immediately */
 document.documentElement.classList.remove('no-js');
+
+/* ═══ DEVICE DETECTION (runs before everything) ═══ */
+const IS_MOBILE = window.matchMedia('(max-width: 768px)').matches;
+const IS_TOUCH  = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+const IS_LOW_END = IS_MOBILE && (navigator.hardwareConcurrency || 4) <= 4;
+const PREFERS_REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 window.addEventListener('load', () => {
   /* ═══ SAFETY CHECKS ═══ */
@@ -1234,28 +1511,37 @@ window.addEventListener('load', () => {
   const yearEl = document.getElementById('footer-year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  /* 1 · Intro veil */
+  /* 1 · Intro veil — faster on mobile */
   const veil = document.getElementById('intro-veil');
   if (veil) {
     requestAnimationFrame(() => {
       veil.style.opacity = '0';
-      setTimeout(() => (veil.style.display = 'none'), 2200);
+      setTimeout(() => (veil.style.display = 'none'), IS_MOBILE ? 1200 : 2200);
     });
   }
 
-  /* 2 · Three.js starfield */
+  /* 2 · Three.js starfield — reduced on mobile */
   (function initThree() {
     if (!HAS_THREE) return;
+    if (IS_LOW_END || PREFERS_REDUCED) return;
+
     const canvas = document.getElementById('bg-canvas');
     if (!canvas) return;
     let renderer;
     try {
-      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha: true,
+        antialias: false,
+        powerPreference: 'high-performance'
+      });
     } catch (e) {
       console.warn('WebGL unavailable — skipping starfield.');
       return;
     }
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.8));
+
+    const DPR = IS_MOBILE ? 1.0 : Math.min(window.devicePixelRatio, 1.8);
+    renderer.setPixelRatio(DPR);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x000000, 0);
 
@@ -1272,9 +1558,11 @@ window.addEventListener('load', () => {
         color, size, transparent: true, opacity: .5, sizeAttenuation: true
       }));
     };
-    const s1 = mkStars(3500, 450, .25, 0xffffff);
-    const s2 = mkStars(1400, 320, .50, 0xc4b0ff);
-    const s3 = mkStars( 600, 240, .80, 0xffcce0);
+
+    const starCount = IS_MOBILE ? { a: 900, b: 400, c: 150 } : { a: 3500, b: 1400, c: 600 };
+    const s1 = mkStars(starCount.a, 450, .25, 0xffffff);
+    const s2 = mkStars(starCount.b, 320, .50, 0xc4b0ff);
+    const s3 = mkStars(starCount.c, 240, .80, 0xffcce0);
     scene.add(s1, s2, s3);
 
     const mkNebula = (x, y, z, rx, ry, col, op) => {
@@ -1289,16 +1577,24 @@ window.addEventListener('load', () => {
       mesh.rotation.set(rx, ry, 0);
       return mesh;
     };
-    const n1 = mkNebula(-40,  25, -70,  .3,  .2, 0x2d1060, .09);
-    const n2 = mkNebula( 50, -15, -90, -.2,  .4, 0x0d3055, .08);
-    const n3 = mkNebula(  0,   0, -55,  .1,  .0, 0x5a1048, .06);
-    scene.add(n1, n2, n3);
+
+    const nebulas = IS_MOBILE
+      ? [mkNebula(-40, 25, -70, .3, .2, 0x2d1060, .07)]
+      : [
+          mkNebula(-40, 25, -70, .3, .2, 0x2d1060, .09),
+          mkNebula( 50, -15, -90, -.2, .4, 0x0d3055, .08),
+          mkNebula(  0, 0, -55, .1, .0, 0x5a1048, .06),
+        ];
+    nebulas.forEach(n => scene.add(n));
 
     let ctX = 0, ctY = 0;
-    document.addEventListener('mousemove', e => {
-      ctX = (e.clientX / window.innerWidth  - .5) * 7;
-      ctY = (e.clientY / window.innerHeight - .5) * -4;
-    });
+    if (!IS_MOBILE) {
+      document.addEventListener('mousemove', e => {
+        ctX = (e.clientX / window.innerWidth  - .5) * 7;
+        ctY = (e.clientY / window.innerHeight - .5) * -4;
+      });
+    }
+
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -1307,13 +1603,20 @@ window.addEventListener('load', () => {
 
     let t = 0;
     const stars = [s1, s2, s3];
-    const nebulas = [n1, n2, n3];
+
+    let isVisible = true;
+    document.addEventListener('visibilitychange', () => {
+      isVisible = !document.hidden;
+    });
+
     (function render() {
       requestAnimationFrame(render);
+      if (!isVisible) return;
+
       t += .0005;
       stars.forEach((s, i) => (s.rotation.y = t * [.11, .07, .05][i]));
       nebulas.forEach((n, i) => {
-        n.material.opacity = [.07,.06,.05][i] + Math.sin(t * [1.1,.8,.6][i] + i * 1.5) * .02;
+        n.material.opacity = [.07,.06,.05][i % 3] + Math.sin(t * [1.1,.8,.6][i % 3] + i * 1.5) * .02;
       });
       camera.position.x += (ctX - camera.position.x) * .034;
       camera.position.y += (ctY - camera.position.y) * .034;
@@ -1324,7 +1627,8 @@ window.addEventListener('load', () => {
 
   /* 3 · Lenis + GSAP */
   let lenis = null;
-  if (HAS_LENIS && HAS_GSAP) {
+  /* Skip Lenis on touch devices — native scroll is smoother there */
+  if (HAS_LENIS && HAS_GSAP && !IS_TOUCH) {
     lenis = new Lenis({
       duration: 1.45,
       easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -1347,107 +1651,124 @@ window.addEventListener('load', () => {
     });
   }
 
-  /* 4 · Parallax (mesh + orbs) */
+  /* 4 · Parallax (mesh + orbs) — disabled on mobile */
   const mesh = document.getElementById('gradient-mesh');
   const orbs = [...document.querySelectorAll('.eth-orb')];
-  if (mesh) {
+
+  if (mesh && !IS_MOBILE) {
     document.addEventListener('mousemove', e => {
       const px = (e.clientX / window.innerWidth  - .5) * 28;
       const py = (e.clientY / window.innerHeight - .5) * 18;
       mesh.style.transform = `translate(${px}px, ${py}px)`;
     });
   }
+
   const onScroll = ({ scroll }) => {
-    orbs.forEach((o, i) => {
-      const speed = [.16, .26, .20, .13][i];
-      o.style.transform = `translateY(${scroll * speed}px)`;
-    });
+    if (!IS_MOBILE) {
+      orbs.forEach((o, i) => {
+        const speed = [.16, .26, .20, .13][i];
+        o.style.transform = `translateY(${scroll * speed}px)`;
+      });
+    }
     const nav = document.getElementById('nav');
     if (nav) nav.classList.toggle('scrolled', scroll > 55);
   };
   if (lenis) lenis.on('scroll', onScroll);
-  else window.addEventListener('scroll', () => onScroll({ scroll: window.scrollY }));
+  else window.addEventListener('scroll', () => onScroll({ scroll: window.scrollY }), { passive: true });
 
   /* 5 · GSAP animations */
   if (HAS_GSAP) {
     gsap.registerPlugin(ScrollTrigger);
 
-    const heroTl = gsap.timeline({ delay: .85 });
+    const heroTl = gsap.timeline({ delay: IS_MOBILE ? .4 : .85 });
     heroTl
       .to('.hero-sig-link', { opacity: 1, duration: .01 })
-      .from('.name-sub',    { y: 30, opacity: 0, filter: 'blur(20px)', duration: 1.4, ease: 'power3.out' })
-      .from('.sig-divider', { scaleX: 0, opacity: 0, duration: .7, ease: 'power2.out' }, '-=.6')
-      .from('.name-sign',   { y: -25, opacity: 0, filter: 'blur(18px)', duration: 2.1, ease: 'power3.out' }, '-=1.0')
-      .from('.sig-visit-hint', { opacity: 0, y: 6, duration: 1, ease: 'power2.out' }, '-=.5')
-      .to('#scroll-beacon', { opacity: 1, duration: 1, ease: 'power1.out' }, '-=.2');
+      .from('.name-sub',    { y: IS_MOBILE ? 15 : 30, opacity: 0, duration: IS_MOBILE ? .8 : 1.4, ease: 'power3.out' })
+      .from('.sig-divider', { scaleX: 0, opacity: 0, duration: .6, ease: 'power2.out' }, '-=.4')
+      .from('.name-sign',   { y: IS_MOBILE ? -12 : -25, opacity: 0, duration: IS_MOBILE ? 1.2 : 2.1, ease: 'power3.out' }, '-=.6')
+      .to('#scroll-beacon', { opacity: 1, duration: .8, ease: 'power1.out' }, '-=.2');
 
     gsap.fromTo('.bio-aside',
-      { opacity: 0, x: -50 },
-      { opacity: 1, x: 0, duration: 1.5, ease: 'power3.out',
-        scrollTrigger: { trigger: '#bio', start: 'top 78%' } }
+      { opacity: 0, x: IS_MOBILE ? -25 : -50 },
+      { opacity: 1, x: 0, duration: IS_MOBILE ? 1 : 1.5, ease: 'power3.out',
+        scrollTrigger: { trigger: '#bio', start: 'top 80%' } }
     );
     gsap.fromTo('.bio-main',
-      { opacity: 0, y: 55, filter: 'blur(12px)' },
-      { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.7, ease: 'power3.out',
-        scrollTrigger: { trigger: '#bio', start: 'top 75%' } }
+      IS_MOBILE
+        ? { opacity: 0, y: 30 }
+        : { opacity: 0, y: 55, filter: 'blur(12px)' },
+      IS_MOBILE
+        ? { opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+            scrollTrigger: { trigger: '#bio', start: 'top 80%' } }
+        : { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.7, ease: 'power3.out',
+            scrollTrigger: { trigger: '#bio', start: 'top 75%' } }
     );
 
     ['#gallery-header', '#story-header'].forEach(s => {
       gsap.fromTo(s,
-        { opacity: 0, y: 42, filter: 'blur(8px)' },
-        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.3, ease: 'power2.out',
-          scrollTrigger: { trigger: s, start: 'top 82%' } }
+        { opacity: 0, y: IS_MOBILE ? 20 : 42 },
+        { opacity: 1, y: 0, duration: IS_MOBILE ? .8 : 1.3, ease: 'power2.out',
+          scrollTrigger: { trigger: s, start: 'top 85%' } }
       );
     });
 
     gsap.fromTo('#gallery-grid .painting',
-      { opacity: 0, y: 75, rotateX: 18, filter: 'blur(10px)' },
-      { opacity: 1, y: 0, rotateX: 0, filter: 'blur(0px)',
-        duration: 1.45, ease: 'power3.out',
-        stagger: { amount: 1.5, from: 'start' },
-        scrollTrigger: { trigger: '#gallery-grid', start: 'top 88%' } }
+      IS_MOBILE
+        ? { opacity: 0, y: 35 }
+        : { opacity: 0, y: 75, rotateX: 18, filter: 'blur(10px)' },
+      IS_MOBILE
+        ? { opacity: 1, y: 0,
+            duration: .9, ease: 'power3.out',
+            stagger: { amount: 1, from: 'start' },
+            scrollTrigger: { trigger: '#gallery-grid', start: 'top 90%' } }
+        : { opacity: 1, y: 0, rotateX: 0, filter: 'blur(0px)',
+            duration: 1.45, ease: 'power3.out',
+            stagger: { amount: 1.5, from: 'start' },
+            scrollTrigger: { trigger: '#gallery-grid', start: 'top 88%' } }
     );
 
     gsap.fromTo('#pull-bar',
       { opacity: 0, scaleX: .55 },
-      { opacity: 1, scaleX: 1, duration: 1.3, ease: 'power2.out',
-        scrollTrigger: { trigger: '#pull-bar', start: 'top 86%' } }
+      { opacity: 1, scaleX: 1, duration: IS_MOBILE ? .8 : 1.3, ease: 'power2.out',
+        scrollTrigger: { trigger: '#pull-bar', start: 'top 88%' } }
     );
 
     [
-      { id: '#story-r1', from: { x: -70, opacity: 0, filter: 'blur(10px)' } },
-      { id: '#story-r2', from: { x:  70, opacity: 0, filter: 'blur(10px)' } },
-      { id: '#story-r3', from: { y:  55, opacity: 0, filter: 'blur(10px)' } },
+      { id: '#story-r1', from: IS_MOBILE ? { y: 25, opacity: 0 } : { x: -70, opacity: 0, filter: 'blur(10px)' } },
+      { id: '#story-r2', from: IS_MOBILE ? { y: 25, opacity: 0 } : { x:  70, opacity: 0, filter: 'blur(10px)' } },
+      { id: '#story-r3', from: IS_MOBILE ? { y: 25, opacity: 0 } : { y:  55, opacity: 0, filter: 'blur(10px)' } },
     ].forEach(({ id, from }) => {
       gsap.fromTo(`${id} .painting`, from,
         { x: 0, y: 0, opacity: 1, filter: 'blur(0px)',
-          duration: 1.38, ease: 'power3.out',
-          stagger: .11,
-          scrollTrigger: { trigger: id, start: 'top 87%' } }
+          duration: IS_MOBILE ? .9 : 1.38, ease: 'power3.out',
+          stagger: IS_MOBILE ? .08 : .11,
+          scrollTrigger: { trigger: id, start: 'top 90%' } }
       );
     });
 
     gsap.fromTo('#footer-inner',
-      { opacity: 0, y: 55 },
-      { opacity: 1, y: 0, duration: 1.5, ease: 'power2.out',
-        scrollTrigger: { trigger: '#footer', start: 'top 82%' } }
+      { opacity: 0, y: IS_MOBILE ? 30 : 55 },
+      { opacity: 1, y: 0, duration: IS_MOBILE ? 1 : 1.5, ease: 'power2.out',
+        scrollTrigger: { trigger: '#footer', start: 'top 85%' } }
     );
   }
 
-  /* 6 · 3D tilt */
-  document.querySelectorAll('.painting').forEach(card => {
-    const frame = card.querySelector('.frame');
-    if (!frame) return;
-    card.addEventListener('mousemove', e => {
-      const r = card.getBoundingClientRect();
-      const nx = (e.clientX - r.left - r.width  / 2) / (r.width  / 2);
-      const ny = (e.clientY - r.top  - r.height / 2) / (r.height / 2);
-      frame.style.transform = `perspective(900px) rotateX(${ny * -9}deg) rotateY(${nx * 13}deg) translateZ(22px) scale(1.025)`;
+  /* 6 · 3D tilt — disabled on touch */
+  if (!IS_TOUCH) {
+    document.querySelectorAll('.painting').forEach(card => {
+      const frame = card.querySelector('.frame');
+      if (!frame) return;
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const nx = (e.clientX - r.left - r.width  / 2) / (r.width  / 2);
+        const ny = (e.clientY - r.top  - r.height / 2) / (r.height / 2);
+        frame.style.transform = `perspective(900px) rotateX(${ny * -9}deg) rotateY(${nx * 13}deg) translateZ(22px) scale(1.025)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        frame.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateZ(0) scale(1)';
+      });
     });
-    card.addEventListener('mouseleave', () => {
-      frame.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateZ(0) scale(1)';
-    });
-  });
+  }
 
   /* 7 · Lightbox */
   const lb      = document.getElementById('lightbox');
@@ -1462,9 +1783,18 @@ window.addEventListener('load', () => {
     const alt   = img ? img.alt : '';
     const title = card.dataset.title || '';
     const desc  = card.dataset.desc  || '';
+
+    lbImg.onload = null;
+    lbImg.onerror = null;
     lbImg.classList.add('loading');
-    lbImg.src = src; lbImg.alt = alt;
-    lbImg.onload = () => lbImg.classList.remove('loading');
+    lbImg.src = src;
+    lbImg.alt = alt;
+    lbImg.onload  = () => lbImg.classList.remove('loading');
+    lbImg.onerror = () => {
+      lbImg.classList.remove('loading');
+      lbDesc.textContent = '⚠ Image could not be loaded.';
+    };
+
     lbTitle.textContent = title;
     lbDesc.textContent  = desc;
     lb.classList.add('open');
@@ -1472,6 +1802,7 @@ window.addEventListener('load', () => {
     document.body.style.overflow = 'hidden';
     if (lenis) lenis.stop();
   };
+
   const closeLB = () => {
     lb.classList.remove('open');
     lb.setAttribute('aria-hidden', 'true');
@@ -1481,6 +1812,7 @@ window.addEventListener('load', () => {
       lbImg.src = ''; lbTitle.textContent = ''; lbDesc.textContent = '';
     }, 700);
   };
+
   document.querySelectorAll('.painting').forEach(c => c.addEventListener('click', () => openLB(c)));
   if (lbX) {
     lbX.addEventListener('click', closeLB);
@@ -1495,18 +1827,21 @@ window.addEventListener('load', () => {
     if (e.key === 'Escape' && lb.classList.contains('open')) closeLB();
   });
 
-  /* 8 · Hero name parallax */
-  const sigLink = document.querySelector('.hero-sig-link');
-  if (sigLink) {
-    document.addEventListener('mousemove', e => {
-      const dx = (e.clientX / window.innerWidth  - .5) * 18;
-      const dy = (e.clientY / window.innerHeight - .5) *  9;
-      sigLink.style.transform = `translate(${dx}px, ${dy}px)`;
-    });
+  /* 8 · Hero name parallax — desktop only */
+  if (!IS_MOBILE) {
+    const sigLink = document.querySelector('.hero-sig-link');
+    if (sigLink) {
+      document.addEventListener('mousemove', e => {
+        const dx = (e.clientX / window.innerWidth  - .5) * 18;
+        const dy = (e.clientY / window.innerHeight - .5) *  9;
+        sigLink.style.transform = `translate(${dx}px, ${dy}px)`;
+      });
+    }
   }
 
-  /* 9 · Dust motes */
-  for (let i = 0; i < 38; i++) {
+  /* 9 · Dust motes — reduced count on mobile */
+  const dustCount = IS_LOW_END ? 0 : (IS_MOBILE ? 8 : 38);
+  for (let i = 0; i < dustCount; i++) {
     const d = document.createElement('div');
     d.classList.add('dust');
     const sz = Math.random() * 2 + .4;
@@ -1519,6 +1854,11 @@ window.addEventListener('load', () => {
       animation-delay: -${(Math.random() * 35).toFixed(1)}s;
     `;
     document.body.appendChild(d);
+  }
+
+  /* ═══ ScrollTrigger refresh after layout settles ═══ */
+  if (HAS_GSAP && typeof ScrollTrigger !== 'undefined') {
+    setTimeout(() => ScrollTrigger.refresh(), IS_MOBILE ? 300 : 600);
   }
 });
 </script>

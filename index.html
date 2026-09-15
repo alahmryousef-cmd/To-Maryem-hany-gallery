@@ -1839,7 +1839,6 @@ window.addEventListener('load', () => {
     }
   }
 
-  /* 9 · Dust motes — reduced count on mobile */
   const dustCount = IS_LOW_END ? 0 : (IS_MOBILE ? 8 : 38);
   for (let i = 0; i < dustCount; i++) {
     const d = document.createElement('div');
@@ -1856,7 +1855,6 @@ window.addEventListener('load', () => {
     document.body.appendChild(d);
   }
 
-  /* ═══ ScrollTrigger refresh after layout settles ═══ */
   if (HAS_GSAP && typeof ScrollTrigger !== 'undefined') {
     setTimeout(() => ScrollTrigger.refresh(), IS_MOBILE ? 300 : 600);
   }
